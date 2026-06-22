@@ -1,6 +1,6 @@
 {
   "name": "@career-intelligence/mock-server",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Local mock Career Intelligence API backed by the deterministic local engine.",
   "license": "MIT",
   "type": "module",
@@ -8,7 +8,10 @@
     ".": "./src/index.ts"
   },
   "types": "./src/index.ts",
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --clean",
     "dev": "tsx src/dev.ts",
@@ -25,5 +28,18 @@
     "tsup": "^8.3.5",
     "tsx": "^4.19.2",
     "vitest": "^2.1.8"
+  },
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "require": "./dist/index.cjs"
+      }
+    }
   }
 }

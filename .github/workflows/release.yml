@@ -1,0 +1,50 @@
+name: Release
+
+# Changesets-driven npm publishing. Inert until an NPM_TOKEN secret is configured
+# (and you own the @career-intelligence npm scope): the publish step is skipped, so
+# this workflow stays green. Once NPM_TOKEN is set, merging a "Version Packages" PR
+# (opened by Changesets) publishes the bumped packages. Add a changeset with
+# `pnpm changeset`.
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: changesets release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+    env:
+      HAS_NPM_TOKEN: ${{ secrets.NPM_TOKEN != '' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+      - run: pnpm install --frozen-lockfile
+      - name: Create Release PR or publish
+        if: ${{ env.HAS_NPM_TOKEN == 'true' }}
+        uses: changesets/action@v1
+        with:
+          version: pnpm changeset version
+          publish: pnpm release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publishing disabled
+        if: ${{ env.HAS_NPM_TOKEN != 'true' }}
+        run: echo "NPM_TOKEN not set — skipping publish. Add the secret + own the @career-intelligence scope to enable npm publishing."
