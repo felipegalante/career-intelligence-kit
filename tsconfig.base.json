@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022"],
+    "types": ["node"],
+
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@career-intelligence/types": ["packages/types/src/index.ts"],
+      "@career-intelligence/provider": ["packages/provider/src/index.ts"],
+      "@career-intelligence/client": ["packages/client/src/index.ts"],
+      "@career-intelligence/rubric-compiler-client": ["packages/rubric-compiler-client/src/index.ts"],
+      "@career-intelligence/local-engine": ["packages/local-engine/src/index.ts"],
+      "@career-intelligence/fit-scoring": ["packages/fit-scoring/src/index.ts"],
+      "@career-intelligence/job-description-normalization": [
+        "packages/job-description-normalization/src/index.ts"
+      ],
+      "@career-intelligence/resume-intelligence": ["packages/resume-intelligence/src/index.ts"],
+      "@career-intelligence/fixtures": ["packages/fixtures/src/index.ts"],
+      "@career-intelligence/mock-server": ["packages/mock-server/src/index.ts"],
+      "@career-intelligence/contract-tests": ["packages/contract-tests/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "dist", ".turbo", "coverage"]
+}
