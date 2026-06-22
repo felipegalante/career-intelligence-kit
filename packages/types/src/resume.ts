@@ -1,11 +1,11 @@
-// Public résumé DTOs. Provider-neutral shapes for résumé input and the parsed
+// Public resume DTOs. Provider-neutral shapes for resume input and the parsed
 // result. The deterministic `resume-intelligence` package produces richer internal
 // structures; the local engine maps those down to these stable public types.
 
 import { type RoleFamily, type Seniority } from "./enums";
 
 export interface ResumeInput {
-  /** Raw résumé text. */
+  /** Raw resume text. */
   text: string;
   /** Optional source filename (used only for logging/UX, never persisted here). */
   filename?: string;
@@ -31,7 +31,7 @@ export interface ResumeSection {
 export interface ResumeSkill {
   /** Canonical skill id, when matched against the skill dictionary. */
   id?: string;
-  /** As written in the résumé. */
+  /** As written in the resume. */
   label: string;
   /** Confidence the skill is genuinely present (0–1). */
   confidence: number;
@@ -49,13 +49,13 @@ export interface ResumeExperience {
 }
 
 export interface ResumeEvidence {
-  /** Short, human-readable claim/signal extracted from the résumé. */
+  /** Short, human-readable claim/signal extracted from the resume. */
   claim: string;
   /** Skill/domain ids this evidence supports. */
   supports: string[];
   /** Strength of the evidence (0–1). */
   strength: number;
-  /** Where in the résumé this came from. */
+  /** Where in the resume this came from. */
   source: ResumeSectionName;
 }
 

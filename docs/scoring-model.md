@@ -1,12 +1,12 @@
 # Scoring model (local engine)
 
-The deterministic engine scores résumé↔job fit without any LLM. This documents the public
+The deterministic engine scores resume↔job fit without any LLM. This documents the public
 shape; the internal algorithm lives in `@career-intelligence/resume-intelligence` and
 `@career-intelligence/fit-scoring`.
 
 ## Pipeline
 
-1. **Parse résumé** (`parseResume`) → skills (tiered), experience, evidence, inferred
+1. **Parse resume** (`parseResume`) → skills (tiered), experience, evidence, inferred
    seniority/role-family.
 2. **Normalize job** (`extractJobProfile`) → tiered required/preferred/inferred skills,
    responsibilities, seniority/role-family signals, eligibility gates.
@@ -27,7 +27,7 @@ shape; the internal algorithm lives in `@career-intelligence/resume-intelligence
 
 ## Role relevance
 
-An off-domain résumé (e.g. a sales résumé against an engineering role) is scaled toward zero;
+An off-domain resume (e.g. a sales resume against an engineering role) is scaled toward zero;
 unknown role data is treated neutrally (never penalized). This keeps the score honest without
 inventing signal.
 

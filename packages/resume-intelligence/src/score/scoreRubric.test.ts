@@ -57,14 +57,14 @@ describe("rubric structure", () => {
 
 describe("rubric sensitivity (spec §27.4)", () => {
   it("gives adjacent-skill credit in core technical skills (Kafka via distributed systems)", () => {
-    // The résumé never says "Kafka" but does say "distributed systems" (a related
-    // skill) → partial credit; COBOL has no résumé relation → zero. This is the
+    // The resume never says "Kafka" but does say "distributed systems" (a related
+    // skill) → partial credit; COBOL has no resume relation → zero. This is the
     // core spec §25 behavior, measured on the dimension it affects.
     const tech = (j: ScoreableJob) =>
       scoreJob(profile, j, opts).breakdown!.dimensions.find((d) => d.id === "technicalStack")!.rawScore;
     const kafka = tech(job({ requiredSkills: ["kafka"] }));
     const cobol = tech(job({ requiredSkills: ["cobol"] }));
-    // Kafka earns adjacency credit (via distributed systems); COBOL has no résumé
+    // Kafka earns adjacency credit (via distributed systems); COBOL has no resume
     // relation, so the Technical Stack dimension scores strictly higher for Kafka.
     expect(kafka).toBeGreaterThan(cobol);
   });
@@ -101,7 +101,7 @@ describe("rubric gates", () => {
       opts,
     );
     const years = r.gates?.find((g) => g.id === "required_years");
-    expect(years?.status).toBe("pass"); // résumé shows ~8y
+    expect(years?.status).toBe("pass"); // resume shows ~8y
     expect(r.gates?.some((g) => g.id === "work_authorization")).toBe(true);
   });
 });

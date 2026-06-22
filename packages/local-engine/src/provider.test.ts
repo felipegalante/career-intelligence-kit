@@ -36,7 +36,7 @@ describe("local career intelligence provider", () => {
     now: () => new Date("2026-01-01T00:00:00.000Z"),
   });
 
-  it("evaluates a résumé against a job using deterministic logic only", async () => {
+  it("evaluates a resume against a job using deterministic logic only", async () => {
     const result = await provider.evaluate({
       resume: { text: RESUME },
       job: { text: JOB, title: "Senior Backend Engineer" },

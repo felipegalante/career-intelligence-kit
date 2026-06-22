@@ -3,7 +3,7 @@ import { classifyHotness, type Hotness, type ScoreableJob, scoreBand } from "@ca
 import type { CandidateProfile } from "./parse-resume";
 import { scoreJob } from "./score";
 
-// On-read fit composition (M15). The single place that turns a résumé profile +
+// On-read fit composition (M15). The single place that turns a resume profile +
 // a scoreable job into the headline fit fields every surface shows — search
 // badges, Hot Jobs, the weekly digest. Pure + deterministic: it composes
 // `scoreJob` (the rubric) with `classifyHotness` / `scoreBand`, exactly as the

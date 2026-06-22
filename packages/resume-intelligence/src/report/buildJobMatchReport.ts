@@ -35,7 +35,7 @@ const VERDICT: Record<MatchClassification, string> = {
 const REC_TITLE: Record<FitRecommendation["type"], string> = {
   add_keyword_if_true: "Add a missing keyword (only if true)",
   strengthen_evidence: "Strengthen your evidence",
-  reorder_resume: "Reorder your résumé",
+  reorder_resume: "Reorder your resume",
   rewrite_bullet: "Rewrite a bullet for impact",
   clarify_domain: "Clarify your domain experience",
 };
@@ -70,7 +70,7 @@ export interface BuildJobMatchReportInput {
 }
 
 const LIMITATIONS = [
-  "This report uses only your résumé, the job posting, and the in-house scoring rubric — no live external research was performed.",
+  "This report uses only your resume, the job posting, and the in-house scoring rubric — no live external research was performed.",
   "Missing company or compensation details are shown as unavailable, not estimated.",
   "This is decision-support guidance, not a hiring prediction or guarantee.",
 ];
@@ -323,7 +323,7 @@ export function buildJobMatchReport(input: BuildJobMatchReportInput): JobMatchRe
       matchLevel: { label: verdict, detail: `${matchedReq.length}/${requiredCount} required skills matched` },
       primaryGap: topGap
         ? { label: topGap.title, detail: topGap.summary }
-        : { label: "No critical gaps", detail: "Your résumé covers the role's core requirements." },
+        : { label: "No critical gaps", detail: "Your resume covers the role's core requirements." },
       estimatedReadiness: {
         value: estimatedReadiness,
         label: "Estimated readiness",

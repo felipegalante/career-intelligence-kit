@@ -139,7 +139,7 @@ export const fitScoreResultFixture: FitScoreResult = {
       kind: "gap",
       ref: "kubernetes",
       label: "kubernetes",
-      detail: "Preferred skill not evidenced in the résumé.",
+      detail: "Preferred skill not evidenced in the resume.",
       impact: 0.4,
     },
   ],
@@ -157,7 +157,7 @@ export const careerEvaluationResultFixture: CareerEvaluationResult = {
   gaps: [
     {
       title: "kubernetes",
-      summary: "Preferred skill not present in the résumé.",
+      summary: "Preferred skill not present in the resume.",
       tip: "Add Kubernetes experience only if genuinely true.",
       impact: "medium",
     },
@@ -171,14 +171,14 @@ export const resumeAtsReportResultFixture: ResumeAtsReportResult = {
   readinessScore: 75,
   verdict: "Strong match for a senior backend role.",
   headline: "strong match",
-  narrative: "Your résumé covers the core required stack; close the Kubernetes gap to strengthen the application.",
+  narrative: "Your resume covers the core required stack; close the Kubernetes gap to strengthen the application.",
   strengths: [
     { title: "typescript", summary: "Strong, well-evidenced TypeScript experience.", confidence: 0.7 },
   ],
   gaps: [
     {
       title: "kubernetes",
-      summary: "Preferred skill not present in the résumé.",
+      summary: "Preferred skill not present in the resume.",
       tip: "Add Kubernetes experience only if genuinely true.",
       impact: "medium",
     },

@@ -38,7 +38,7 @@ import {
   type Seniority,
 } from "@career-intelligence/types";
 
-// ---- résumé ---------------------------------------------------------------
+// ---- resume ---------------------------------------------------------------
 
 function evidenceSection(source: InternalResumeEvidence["source"]): ResumeSectionName {
   switch (source) {

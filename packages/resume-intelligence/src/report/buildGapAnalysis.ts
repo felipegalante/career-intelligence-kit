@@ -1,6 +1,6 @@
 // Typed gap analysis (M9-S6, spec §21). Instead of a flat "missing keywords" list,
 // classify each shortfall: a truly absent mandatory skill is a different problem
-// from a skill the résumé *demonstrates through adjacent work* but never names, or
+// from a skill the resume *demonstrates through adjacent work* but never names, or
 // a skill that's listed but never tied to real experience. Each gap carries a
 // severity, a plain explanation, a safe recommendation, and `addOnlyIfTrue` — the
 // keywords to add only if genuinely accurate (never asserted on the candidate).
@@ -41,18 +41,18 @@ export function buildGapAnalysis(input: GapAnalysisInput): FitGap[] {
         type,
         severity: severityFor(m.importance),
         requirement: label,
-        explanation: `The job asks for ${label}, which the résumé does not show.`,
+        explanation: `The job asks for ${label}, which the resume does not show.`,
         recommendation: `Add ${label} only if you genuinely have it; otherwise consider whether the role is a fit.`,
         addOnlyIfTrue: [label],
       });
     } else if (m.matchType === "adjacent") {
-      // The résumé demonstrates related work but never names the requirement.
+      // The resume demonstrates related work but never names the requirement.
       gaps.push({
         type: "keyword_not_explicit",
         severity: severityFor(m.importance, "minor"),
         requirement: label,
         explanation:
-          `The résumé shows adjacent experience (${m.via ? skillLabel(m.via) : "related skills"}) ` +
+          `The resume shows adjacent experience (${m.via ? skillLabel(m.via) : "related skills"}) ` +
           `but does not explicitly state "${label}".`,
         recommendation: `Add "${label}" only if accurate — your ${m.via ? skillLabel(m.via) : "related"} work may already qualify.`,
         addOnlyIfTrue: [label],
@@ -62,7 +62,7 @@ export function buildGapAnalysis(input: GapAnalysisInput): FitGap[] {
         type: "weak_evidence",
         severity: "minor",
         requirement: label,
-        explanation: `${label} appears in the résumé but mostly in a skills list, not tied to an accomplishment.`,
+        explanation: `${label} appears in the resume but mostly in a skills list, not tied to an accomplishment.`,
         recommendation: `Strengthen ${label} by tying it to an experience bullet with ownership, system context, or a measurable outcome.`,
         addOnlyIfTrue: [],
       });
@@ -84,7 +84,7 @@ export function buildGapAnalysis(input: GapAnalysisInput): FitGap[] {
         type: "domain_gap",
         severity: "moderate",
         requirement: domainLabel(d.domainId),
-        explanation: `The role centers on ${domainLabel(d.domainId)}, which the résumé does not evidence.`,
+        explanation: `The role centers on ${domainLabel(d.domainId)}, which the resume does not evidence.`,
         recommendation: `Highlight any ${domainLabel(d.domainId)} experience only if you have it.`,
         addOnlyIfTrue: [domainLabel(d.domainId)],
       });
@@ -93,7 +93,7 @@ export function buildGapAnalysis(input: GapAnalysisInput): FitGap[] {
         type: "context_gap",
         severity: "minor",
         requirement: domainLabel(d.domainId),
-        explanation: `The résumé shows adjacent business context (${d.via ? domainLabel(d.via) : "related domain"}) rather than ${domainLabel(d.domainId)} directly.`,
+        explanation: `The resume shows adjacent business context (${d.via ? domainLabel(d.via) : "related domain"}) rather than ${domainLabel(d.domainId)} directly.`,
         recommendation: `Clarify your ${domainLabel(d.domainId)} exposure if it applies.`,
         addOnlyIfTrue: [domainLabel(d.domainId)],
       });
@@ -106,7 +106,7 @@ export function buildGapAnalysis(input: GapAnalysisInput): FitGap[] {
       type: "seniority_gap",
       severity: sen.fit <= 0.3 ? "major" : "moderate",
       requirement: `${sen.requiredLevel} level`,
-      explanation: `The role targets ${sen.requiredLevel}; the résumé reads as ${sen.candidateLevel ?? "below that"}.`,
+      explanation: `The role targets ${sen.requiredLevel}; the resume reads as ${sen.candidateLevel ?? "below that"}.`,
       recommendation: `Emphasize scope, ownership, and impact that demonstrate ${sen.requiredLevel}-level work, if accurate.`,
       addOnlyIfTrue: [],
     });

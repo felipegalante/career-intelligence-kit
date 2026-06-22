@@ -3,7 +3,7 @@
 // job doesn't exercise get a neutral baseline (the candidate isn't penalized for
 // what the role doesn't test). The base score is the weighted sum (weights total
 // 100); a role-relevance multiplier is applied by the caller so an off-domain
-// résumé lands near zero.
+// resume lands near zero.
 //
 // M14-S1: the rubric is the 6-dimension Job Match model (technical stack, seniority
 // & scope, architecture, stakeholder fit, business orientation, communication &
@@ -23,7 +23,7 @@ import type { EvidenceMatchResult, SkillMatch as RubricSkillMatch } from "../mat
 
 export interface RubricResumeInput {
   evidence: ResumeEvidence[];
-  /** All résumé skill ids. */
+  /** All resume skill ids. */
   skills: Set<string>;
   seniorityLevel: string | null;
   parseConfidence: number;
@@ -56,7 +56,7 @@ const avg = (xs: number[]): number => (xs.length === 0 ? 0 : xs.reduce((a, b) =>
 // "security" shouldn't drag an otherwise-strong candidate down — but it shouldn't
 // hand out full marks either.
 const NEUTRAL = 0.8;
-const RESUME_BONUS = 0.85; // job doesn't test it, but the résumé shows it
+const RESUME_BONUS = 0.85; // job doesn't test it, but the resume shows it
 const ADJ_DISCOUNT = 0.65; // adjacent-skill credit is worth less than exact
 
 // Per-skill match quality in [0,1]: exact vs adjacent, scaled by how strong and

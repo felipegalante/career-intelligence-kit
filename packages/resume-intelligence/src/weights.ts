@@ -22,7 +22,7 @@ export const JOB_TIER_WEIGHTS: Record<JobTier, number> = {
 // ---- Composite rubric (M8+) ----------------------------------------------
 // The match is no longer pure skill overlap. A fit blends three additive
 // components (skill overlap, how many *required* skills are met, and seniority
-// fit) and is then scaled by a role-relevance multiplier so an off-domain résumé
+// fit) and is then scaled by a role-relevance multiplier so an off-domain resume
 // (e.g. a sales CV against an engineering role) lands near zero while a missing
 // skill only *lowers* — never zeroes — an otherwise-relevant candidate.
 //
@@ -32,7 +32,7 @@ export const JOB_TIER_WEIGHTS: Record<JobTier, number> = {
 // Tunable — these constants feed the config-version hash, so changing them
 // transparently invalidates cached scores.
 export const COMPONENT_WEIGHTS = {
-  /** Weighted tier overlap of job skills with the résumé. */
+  /** Weighted tier overlap of job skills with the resume. */
   skill: 0.45,
   /** Fraction of the job's required skills the candidate has. */
   required: 0.35,

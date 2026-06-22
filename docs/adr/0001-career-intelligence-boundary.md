@@ -5,7 +5,7 @@
 ## Context
 
 Across the PathMerit ecosystem, several products need the same career-intelligence
-capability — parse a résumé, normalize a job description, score fit, produce a report. The
+capability — parse a resume, normalize a job description, score fit, produce a report. The
 high-quality implementation is private (Rubric Compiler), but the public products
 (Intelligent Job Board, Resume ATS Intelligence) must remain runnable and useful without it.
 

@@ -67,7 +67,7 @@ describe("scoreJob", () => {
   });
 
   it("crushes an off-domain role with the role-relevance multiplier", () => {
-    // Even a matched required skill can't rescue an engineering résumé against a
+    // Even a matched required skill can't rescue an engineering resume against a
     // sales role — the wrong domain caps the fit near zero.
     const r = scoreJob(
       profile,

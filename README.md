@@ -5,7 +5,7 @@ ecosystem.
 
 This repository owns the stable, provider-neutral types, provider interfaces, API clients,
 the OpenAPI contract, fixtures, a mock server, contract tests, and **deterministic local
-fallback logic** for career intelligence — résumé parsing, job-description-to-score-profile
+fallback logic** for career intelligence — resume parsing, job-description-to-score-profile
 normalization, and deterministic fit scoring.
 
 > It is **not** the private Rubric Compiler. It contains no proprietary scoring weights or
@@ -21,7 +21,7 @@ normalization, and deterministic fit scoring.
 | `@career-intelligence/types` | Stable, provider-neutral DTOs and public types |
 | `@career-intelligence/fit-scoring` | Deterministic fit scoring + hotness classification |
 | `@career-intelligence/job-description-normalization` | JD → score-profile normalization (skills, seniority, role family, requirement graph, taxonomy) |
-| `@career-intelligence/resume-intelligence` | Résumé parsing, evidence matching, scoring, gap analysis, Job Match Report builder |
+| `@career-intelligence/resume-intelligence` | Resume parsing, evidence matching, scoring, gap analysis, Job Match Report builder |
 | `@career-intelligence/provider` | The `CareerIntelligenceProvider` interface |
 | `@career-intelligence/local-engine` | Deterministic provider composing the three engines above |
 | `@career-intelligence/client` | Generic Career Intelligence HTTP client |

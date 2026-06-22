@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 // Job Match Report contract. A structured, deterministic report evaluating the fit
-// between a résumé and a job posting, built entirely from the in-house engine's
+// between a resume and a job posting, built entirely from the in-house engine's
 // output + job metadata (no LLM, no external services). `fitInsights` is the primary
 // UI contract; the top-level fields are source/headline data. Extracted verbatim from
 // Intelligent Job Board's `@ijb/contracts` report module (the report-generation part
@@ -50,7 +50,7 @@ export const reportRoleContextSchema = z.object({
 });
 export type ReportRoleContext = z.infer<typeof reportRoleContextSchema>;
 
-// ---- intelligence (report-local, derived from résumé/job/rubric) -----------
+// ---- intelligence (report-local, derived from resume/job/rubric) -----------
 
 export const reportIntelligenceSectionSchema = z.object({
   available: z.boolean(),

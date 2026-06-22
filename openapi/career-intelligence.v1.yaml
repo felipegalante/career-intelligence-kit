@@ -29,7 +29,7 @@ paths:
   /v1/resumes/parse:
     post:
       operationId: parseResume
-      summary: Parse raw résumé text into a structured profile.
+      summary: Parse raw resume text into a structured profile.
       requestBody:
         required: true
         content:
@@ -38,7 +38,7 @@ paths:
               $ref: "#/components/schemas/ParseResumeInput"
       responses:
         "200":
-          description: Parsed résumé + metadata.
+          description: Parsed resume + metadata.
           content:
             application/json:
               schema:
@@ -63,7 +63,7 @@ paths:
   /v1/fit-score:
     post:
       operationId: scoreFit
-      summary: Score résumé↔job fit.
+      summary: Score resume↔job fit.
       requestBody:
         required: true
         content:
@@ -80,7 +80,7 @@ paths:
   /v1/evaluations:
     post:
       operationId: evaluate
-      summary: Full evaluation (parsed résumé + job profile + fit + strengths/gaps).
+      summary: Full evaluation (parsed resume + job profile + fit + strengths/gaps).
       requestBody:
         required: true
         content:
@@ -163,7 +163,7 @@ components:
         requestId: { type: string }
     ParsedResume:
       type: object
-      description: Structured résumé profile. See @career-intelligence/types for the full shape.
+      description: Structured resume profile. See @career-intelligence/types for the full shape.
       additionalProperties: true
     ParseResumeResult:
       type: object

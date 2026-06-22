@@ -28,7 +28,7 @@ import { ROLE_ADJACENCY, ROLE_RELEVANCE, SENIORITY_RANK } from "./weights";
 // The in-house rubric scorer (M9-S5). The fit now comes from a deterministic
 // 10-dimension weighted rubric (spec §17/§18) over the matching engine's output
 // (exact / adjacent / missing skills, domain overlap, seniority, gates), then
-// scaled by a role-relevance multiplier so an off-domain résumé lands near zero.
+// scaled by a role-relevance multiplier so an off-domain resume lands near zero.
 // The legacy `JobFitResult` fields (matched/missing required+preferred,
 // missingHardGates, explanationSummary) stay populated for the M8 worker, the
 // hotness gate, search ranking, and the existing UI.
@@ -42,8 +42,8 @@ function partition(jobSkills: string[], resumeSkills: Set<string>): { matched: s
 
 const rank = (s: string | null | undefined): number => (s ? (SENIORITY_RANK[s] ?? 0) : 0);
 
-// Deterministic ATS-style score (0–100): how explicitly the résumé names the job's
-// required skills (exact keyword coverage) blended with résumé parseability. Falls
+// Deterministic ATS-style score (0–100): how explicitly the resume names the job's
+// required skills (exact keyword coverage) blended with resume parseability. Falls
 // back to the preferred tier when a job lists no required skills. Distinct from the
 // rubric's match-quality score (M14-S1).
 function atsScore(
@@ -88,7 +88,7 @@ function candidateRoleFamilies(profile: CandidateProfile): Set<string> {
 }
 
 // Role-relevance multiplier. Unknown → neutral 1.0 (never penalize missing data);
-// off-domain (e.g. sales résumé vs engineering role) → 0.1.
+// off-domain (e.g. sales resume vs engineering role) → 0.1.
 function roleRelevance(candidateFamilies: Set<string>, jobFamily: string | null): number {
   if (!jobFamily || candidateFamilies.size === 0) return ROLE_RELEVANCE.unknown;
   if (candidateFamilies.has(jobFamily)) return ROLE_RELEVANCE.same;

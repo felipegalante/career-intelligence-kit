@@ -39,7 +39,7 @@ function assertMetadata(metadata: IntelligenceResultMetadata): void {
  *
  * @param label   Human label for the implementation under test.
  * @param make    Factory returning the provider (sync or async).
- * @param inputs  Sample résumé/job inputs (defaults to the shared fixtures).
+ * @param inputs  Sample resume/job inputs (defaults to the shared fixtures).
  */
 export function runCareerIntelligenceContract(
   label: string,
@@ -64,7 +64,7 @@ export function runCareerIntelligenceContract(
       expect(descriptor.capabilities.evaluate).toBe(true);
     });
 
-    it("parses a résumé with provenance metadata", async () => {
+    it("parses a resume with provenance metadata", async () => {
       const provider = await make();
       const result = await provider.parseResume({ resume, requestId: "ct-parse" });
       expect(result.resume.parserVersion).toBeTruthy();

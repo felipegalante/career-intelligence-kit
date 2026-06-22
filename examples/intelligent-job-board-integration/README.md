@@ -1,6 +1,6 @@
 # Example — Intelligent Job Board integration
 
-Intelligent Job Board consumes this kit for its optional résumé-fit / report features
+Intelligent Job Board consumes this kit for its optional resume-fit / report features
 (Step 03 of the migration). Job search itself comes from Job Platform, not from here.
 
 ```ts

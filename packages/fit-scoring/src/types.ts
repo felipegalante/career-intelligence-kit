@@ -71,7 +71,7 @@ export interface ScoreBreakdown {
   roleRelevance: number;
 }
 
-/** A surfaced strength: a requirement well-supported by résumé evidence (M9-S5). */
+/** A surfaced strength: a requirement well-supported by resume evidence (M9-S5). */
 export interface FitStrength {
   label: string;
   /** Short evidence snippets / matched skills supporting it. */
@@ -99,7 +99,7 @@ export type GapType =
 
 export type GapSeverity = "critical" | "major" | "moderate" | "minor";
 
-/** An explainable gap between the job and the résumé (M9-S6, spec §21). */
+/** An explainable gap between the job and the resume (M9-S6, spec §21). */
 export interface FitGap {
   type: GapType;
   severity: GapSeverity;
@@ -132,7 +132,7 @@ export interface JobFitResult {
   /** 0–100. */
   overallScore: number;
   /**
-   * 0–100 ATS-style alignment: how explicitly the résumé names the job's required
+   * 0–100 ATS-style alignment: how explicitly the resume names the job's required
    * skills (keyword coverage) blended with parseability. Distinct from
    * `overallScore` (match quality). Filled by the in-house rubric engine (M14-S1).
    */

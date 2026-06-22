@@ -1,8 +1,8 @@
-// Resume evidence graph (M9-S3, spec §6.1). Each bullet/line of a résumé becomes
+// Resume evidence graph (M9-S3, spec §6.1). Each bullet/line of a resume becomes
 // a typed evidence object: where it came from, the role/date it belongs to, the
 // skills + domains it mentions, the action verbs + metrics + seniority signals it
 // carries, and derived evidence-strength + recency scores. The matching engine
-// (M9-S4) walks these instead of treating the résumé as one bag of keywords.
+// (M9-S4) walks these instead of treating the resume as one bag of keywords.
 
 import {
   extractActionVerbs,
@@ -137,7 +137,7 @@ export function buildEvidence(input: BuildEvidenceInput): ResumeEvidence[] {
     });
   }
 
-  // Nothing recognized → scan the whole résumé as unknown-source evidence so the
+  // Nothing recognized → scan the whole resume as unknown-source evidence so the
   // engine still has something to match against.
   if (out.length === 0) {
     for (const line of input.fallbackLines) {

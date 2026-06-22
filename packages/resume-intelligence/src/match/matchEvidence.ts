@@ -1,5 +1,5 @@
 // Matching engine (M9-S4, spec §11/§14/§25). Walks a job's requirements against a
-// résumé's evidence graph and produces explainable matches:
+// resume's evidence graph and produces explainable matches:
 //   - skills: exact, alias (already collapsed to `normalizedName`), or *adjacent*
 //     (Kafka absent but event-driven present → partial credit), each backed by the
 //     strongest, most recent evidence available;
@@ -7,7 +7,7 @@
 //   - seniority: title level combined with responsibility signals (a "Senior" who
 //     architected and owned end-to-end reads higher than the title alone);
 //   - gates: explicit eligibility checks (years now; others reported `unknown`
-//     because they aren't determinable from résumé text — spec §16).
+//     because they aren't determinable from resume text — spec §16).
 
 import {
   adjacentDomainWeight,
@@ -29,7 +29,7 @@ export interface SkillMatch {
   matchType: SkillMatchType;
   /** Credit in [0,1]: 1 exact, adjacency weight for adjacent, 0 missing. */
   credit: number;
-  /** The résumé skill that supplied adjacent credit. */
+  /** The resume skill that supplied adjacent credit. */
   via?: string;
   /** Strength (0–5) of the best evidence backing this match. */
   evidenceStrength: number;
@@ -68,12 +68,12 @@ export interface EvidenceMatchResult {
   domains: DomainMatch[];
   seniority: SeniorityMatch;
   gates: GateMatch[];
-  /** Domain ids present in the résumé (union of evidence). */
+  /** Domain ids present in the resume (union of evidence). */
   resumeDomains: string[];
 }
 
 export interface MatchResumeInput {
-  /** All résumé skill ids (tier1 ∪ tier2 ∪ tier3). */
+  /** All resume skill ids (tier1 ∪ tier2 ∪ tier3). */
   skills: string[];
   evidence: ResumeEvidence[];
   /** Highest attained candidate seniority level, or null. */
@@ -91,7 +91,7 @@ export interface MatchJobInput {
 
 const rank = (level: string | null | undefined): number => (level ? (SENIORITY_RANK[level] ?? 0) : 0);
 
-/** Best evidence (strength, recency) backing a given skill id in the résumé. */
+/** Best evidence (strength, recency) backing a given skill id in the resume. */
 function bestEvidenceFor(skillId: string, evidence: ResumeEvidence[]): { strength: number; recency: number } {
   let strength = 0;
   let recency = 0;
@@ -116,7 +116,7 @@ function matchOneSkill(required: RequiredSkill, resumeSkills: Set<string>, evide
       recency: best.recency,
     };
   }
-  // Adjacent: the résumé skill with the strongest relationship to the requirement.
+  // Adjacent: the resume skill with the strongest relationship to the requirement.
   let bestVia: string | undefined;
   let bestWeight = 0;
   for (const rs of resumeSkills) {
@@ -214,13 +214,13 @@ function matchGates(resume: MatchResumeInput, job: MatchJobInput): GateMatch[] {
       return { id: gate.id, status: "fail", reason: `${resume.totalYears.toFixed(0)}y below ${need}y required.` };
     }
     // Location, work auth, clearance, certification, language, employment type are
-    // not reliably determinable from résumé text — report honestly as unknown
+    // not reliably determinable from resume text — report honestly as unknown
     // rather than inferring (spec §16).
-    return { id: gate.id, status: "unknown", reason: `${gate.label} not determinable from résumé.` };
+    return { id: gate.id, status: "unknown", reason: `${gate.label} not determinable from resume.` };
   });
 }
 
-/** Match a résumé evidence graph against a job requirement graph. Deterministic. */
+/** Match a resume evidence graph against a job requirement graph. Deterministic. */
 export function matchEvidence(resume: MatchResumeInput, job: MatchJobInput): EvidenceMatchResult {
   const resumeSkills = new Set(resume.skills);
   const resumeDomains = new Set(resume.evidence.flatMap((e) => e.domains));

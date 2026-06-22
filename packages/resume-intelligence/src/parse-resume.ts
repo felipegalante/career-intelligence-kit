@@ -55,7 +55,7 @@ export interface CandidateProfile {
   totalYearsExperience: number | null;
   techTiers: TechTiers;
   education: EducationEntry[];
-  /** Best-effort location parsed from the résumé header (display + Hot Jobs filter). */
+  /** Best-effort location parsed from the resume header (display + Hot Jobs filter). */
   location: CandidateLocation;
   /**
    * Evidence graph (M9-S3): per-bullet typed evidence the rubric engine matches
@@ -281,7 +281,7 @@ function extractEducation(lines: string[]): EducationEntry[] {
 
 // ---- Location -------------------------------------------------------------
 
-// Résumé contact details (incl. location) sit in the header. Scan the first few
+// Resume contact details (incl. location) sit in the header. Scan the first few
 // lines through the shared ATS location parser and take the first country it
 // recognizes — produced as the same ISO alpha-2 code job_postings.country uses,
 // so applicant ↔ job comparison is apples-to-apples.

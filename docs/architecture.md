@@ -31,7 +31,7 @@ contract-tests      → provider, types, fixtures (+ client/local-engine/mock-se
 ## What this repo does and does not own
 
 **Owns:** stable public types, the provider interface, the OpenAPI contract, HTTP clients,
-fixtures, a mock server, contract tests, and deterministic local logic (résumé parsing,
+fixtures, a mock server, contract tests, and deterministic local logic (resume parsing,
 JD-to-score-profile normalization, deterministic fit scoring).
 
 **Does not own:** proprietary scoring weights/calibration, PathMerit product logic, job

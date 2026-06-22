@@ -65,7 +65,7 @@ describe("parseResume — education (display-only)", () => {
 });
 
 describe("parseResume — location (Hot Jobs country filter)", () => {
-  it("extracts an ISO country code from the résumé header", () => {
+  it("extracts an ISO country code from the resume header", () => {
     expect(parseResume(LOCATED_RESUME, { now: NOW }).location.country).toBe("DE");
   });
 

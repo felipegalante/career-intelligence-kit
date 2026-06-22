@@ -18,15 +18,15 @@ import {
 } from "@career-intelligence/types";
 
 export interface CareerIntelligenceProvider {
-  /** Parse raw résumé text into a structured, provider-neutral profile. */
+  /** Parse raw resume text into a structured, provider-neutral profile. */
   parseResume(input: ParseResumeInput): Promise<ParseResumeResult>;
   /** Normalize a job description into a scoring profile. */
   normalizeJobDescription(
     input: NormalizeJobDescriptionInput,
   ): Promise<NormalizeJobDescriptionResult>;
-  /** Score résumé↔job fit. */
+  /** Score resume↔job fit. */
   scoreFit(input: ScoreFitInput): Promise<FitScoreResult>;
-  /** Full evaluation: parsed résumé + job profile + fit + strengths/gaps. */
+  /** Full evaluation: parsed resume + job profile + fit + strengths/gaps. */
   evaluate(input: CareerEvaluationInput): Promise<CareerEvaluationResult>;
   /** Resume ATS report: the user-facing report shape. */
   generateResumeAtsReport(input: CareerEvaluationInput): Promise<ResumeAtsReportResult>;
