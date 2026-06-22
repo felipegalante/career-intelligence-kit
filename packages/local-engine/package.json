@@ -1,0 +1,29 @@
+{
+  "name": "@career-intelligence/local-engine",
+  "version": "0.0.0",
+  "description": "Deterministic CareerIntelligenceProvider composing resume-intelligence, job-description-normalization, and fit-scoring.",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "types": "./src/index.ts",
+  "files": ["dist", "src"],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src --ext .ts",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@career-intelligence/fit-scoring": "workspace:*",
+    "@career-intelligence/job-description-normalization": "workspace:*",
+    "@career-intelligence/provider": "workspace:*",
+    "@career-intelligence/resume-intelligence": "workspace:*",
+    "@career-intelligence/types": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.5",
+    "vitest": "^2.1.8"
+  }
+}

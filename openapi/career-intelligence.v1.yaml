@@ -1,0 +1,264 @@
+openapi: 3.1.0
+info:
+  title: Career Intelligence API
+  version: 1.0.0
+  description: >
+    Public contract for career-intelligence providers. Implemented by the private
+    Rubric Compiler service and emulated by `@career-intelligence/mock-server`. The
+    deterministic `@career-intelligence/local-engine` satisfies the same operations
+    in-process. Every result carries `IntelligenceResultMetadata` so consumers can
+    tell which provider produced it, whether it is degraded, the engine version, and
+    any warnings.
+  license:
+    name: MIT
+servers:
+  - url: https://api.example.com
+    description: Placeholder; configure per deployment.
+paths:
+  /v1/health:
+    get:
+      operationId: getHealth
+      summary: Liveness/health for the provider.
+      responses:
+        "200":
+          description: Health status.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CareerIntelligenceHealth"
+  /v1/resumes/parse:
+    post:
+      operationId: parseResume
+      summary: Parse raw résumé text into a structured profile.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ParseResumeInput"
+      responses:
+        "200":
+          description: Parsed résumé + metadata.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ParseResumeResult"
+  /v1/jobs/normalize:
+    post:
+      operationId: normalizeJobDescription
+      summary: Normalize a job description into a scoring profile.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NormalizeJobDescriptionInput"
+      responses:
+        "200":
+          description: Normalized job profile + metadata.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NormalizeJobDescriptionResult"
+  /v1/fit-score:
+    post:
+      operationId: scoreFit
+      summary: Score résumé↔job fit.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScoreFitInput"
+      responses:
+        "200":
+          description: Fit score result.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FitScoreResult"
+  /v1/evaluations:
+    post:
+      operationId: evaluate
+      summary: Full evaluation (parsed résumé + job profile + fit + strengths/gaps).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CareerEvaluationInput"
+      responses:
+        "200":
+          description: Career evaluation result.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CareerEvaluationResult"
+  /v1/reports/resume-ats:
+    post:
+      operationId: generateResumeAtsReport
+      summary: Generate a Resume ATS report.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CareerEvaluationInput"
+      responses:
+        "200":
+          description: Resume ATS report result.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResumeAtsReportResult"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    IntelligenceResultMetadata:
+      type: object
+      required: [provider, mode, degraded, engineVersion, generatedAt, warnings]
+      properties:
+        provider: { type: string }
+        mode: { type: string, enum: [local, remote] }
+        degraded: { type: boolean }
+        engineVersion: { type: string }
+        configVersion: { type: string }
+        scoringMode: { type: string }
+        generatedAt: { type: string, format: date-time }
+        requestId: { type: string }
+        warnings:
+          type: array
+          items: { type: string }
+    CareerIntelligenceHealth:
+      type: object
+      required: [status, provider, engineVersion, localFallbackOnly]
+      properties:
+        status: { type: string, enum: [ok, degraded, unavailable] }
+        provider: { type: string }
+        engineVersion: { type: string }
+        localFallbackOnly: { type: boolean }
+    ResumeInput:
+      type: object
+      required: [text]
+      properties:
+        text: { type: string }
+        filename: { type: string }
+        locale: { type: string }
+    JobDescriptionInput:
+      type: object
+      required: [text]
+      properties:
+        text: { type: string }
+        title: { type: string }
+        company: { type: string }
+        locale: { type: string }
+    ParseResumeInput:
+      type: object
+      required: [resume]
+      properties:
+        resume: { $ref: "#/components/schemas/ResumeInput" }
+        requestId: { type: string }
+    ParsedResume:
+      type: object
+      description: Structured résumé profile. See @career-intelligence/types for the full shape.
+      additionalProperties: true
+    ParseResumeResult:
+      type: object
+      required: [resume, metadata]
+      properties:
+        resume: { $ref: "#/components/schemas/ParsedResume" }
+        metadata: { $ref: "#/components/schemas/IntelligenceResultMetadata" }
+    NormalizeJobDescriptionInput:
+      type: object
+      required: [job]
+      properties:
+        job: { $ref: "#/components/schemas/JobDescriptionInput" }
+        requestId: { type: string }
+    NormalizedJobProfile:
+      type: object
+      description: Normalized job scoring profile. See @career-intelligence/types.
+      additionalProperties: true
+    NormalizeJobDescriptionResult:
+      type: object
+      required: [job, metadata]
+      properties:
+        job: { $ref: "#/components/schemas/NormalizedJobProfile" }
+        metadata: { $ref: "#/components/schemas/IntelligenceResultMetadata" }
+    ScoreFitInput:
+      type: object
+      required: [resume, job]
+      properties:
+        resume: { $ref: "#/components/schemas/ResumeInput" }
+        job: { $ref: "#/components/schemas/JobDescriptionInput" }
+        requestId: { type: string }
+    FitScoreResult:
+      type: object
+      required: [score, atsScore, matchLevel, verdict, dimensions, signals, calibration, metadata]
+      properties:
+        score: { type: number }
+        atsScore: { type: number }
+        matchLevel: { type: string, enum: [strong, good, fair, weak] }
+        verdict: { type: string }
+        dimensions:
+          type: array
+          items: { type: object, additionalProperties: true }
+        signals:
+          type: array
+          items: { type: object, additionalProperties: true }
+        calibration:
+          type: array
+          items: { type: object, additionalProperties: true }
+        metadata: { $ref: "#/components/schemas/IntelligenceResultMetadata" }
+    CareerEvaluationInput:
+      type: object
+      required: [resume, job]
+      properties:
+        resume: { $ref: "#/components/schemas/ResumeInput" }
+        job: { $ref: "#/components/schemas/JobDescriptionInput" }
+        requestId: { type: string }
+    CareerEvaluationResult:
+      type: object
+      required: [parsedResume, jobProfile, fit, strengths, gaps, metadata]
+      properties:
+        parsedResume: { $ref: "#/components/schemas/ParsedResume" }
+        jobProfile: { $ref: "#/components/schemas/NormalizedJobProfile" }
+        fit: { $ref: "#/components/schemas/FitScoreResult" }
+        strengths:
+          type: array
+          items: { type: object, additionalProperties: true }
+        gaps:
+          type: array
+          items: { type: object, additionalProperties: true }
+        metadata: { $ref: "#/components/schemas/IntelligenceResultMetadata" }
+    ResumeAtsReportResult:
+      type: object
+      required: [fitScore, atsScore, readinessScore, verdict, headline, narrative, metadata]
+      properties:
+        fitScore: { type: number }
+        atsScore: { type: number }
+        readinessScore: { type: number }
+        verdict: { type: string }
+        headline: { type: string }
+        narrative: { type: string }
+        strengths:
+          type: array
+          items: { type: object, additionalProperties: true }
+        gaps:
+          type: array
+          items: { type: object, additionalProperties: true }
+        skillsCoverage: { type: object, additionalProperties: true }
+        roadmap:
+          type: array
+          items: { type: string }
+        interviewPrep:
+          type: array
+          items: { type: string }
+        limitations:
+          type: array
+          items: { type: string }
+        metadata: { $ref: "#/components/schemas/IntelligenceResultMetadata" }
+security:
+  - bearerAuth: []

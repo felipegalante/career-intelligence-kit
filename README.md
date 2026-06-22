@@ -22,13 +22,13 @@ normalization, and deterministic fit scoring.
 | `@career-intelligence/fit-scoring` | Deterministic fit scoring + hotness classification |
 | `@career-intelligence/job-description-normalization` | JD → score-profile normalization (skills, seniority, role family, requirement graph, taxonomy) |
 | `@career-intelligence/resume-intelligence` | Résumé parsing, evidence matching, scoring, gap analysis, Job Match Report builder |
-| `@career-intelligence/provider` | The `CareerIntelligenceProvider` interface _(in progress)_ |
-| `@career-intelligence/local-engine` | Deterministic provider composing the three engines above _(in progress)_ |
-| `@career-intelligence/client` | Generic Career Intelligence HTTP client _(in progress)_ |
-| `@career-intelligence/rubric-compiler-client` | HTTP provider for the private Rubric Compiler _(in progress)_ |
-| `@career-intelligence/fixtures` | Realistic non-private fixtures _(in progress)_ |
-| `@career-intelligence/mock-server` | Local mock Career Intelligence API _(in progress)_ |
-| `@career-intelligence/contract-tests` | Reusable contract tests (mock + real service) _(in progress)_ |
+| `@career-intelligence/provider` | The `CareerIntelligenceProvider` interface |
+| `@career-intelligence/local-engine` | Deterministic provider composing the three engines above |
+| `@career-intelligence/client` | Generic Career Intelligence HTTP client |
+| `@career-intelligence/rubric-compiler-client` | HTTP provider for the private Rubric Compiler |
+| `@career-intelligence/fixtures` | Realistic non-private fixtures |
+| `@career-intelligence/mock-server` | Local mock Career Intelligence API |
+| `@career-intelligence/contract-tests` | Reusable contract tests (mock + real service) |
 
 ## Provenance
 

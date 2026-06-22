@@ -1,0 +1,33 @@
+{
+  "name": "@career-intelligence/contract-tests",
+  "version": "0.0.0",
+  "description": "Reusable Career Intelligence contract test suite (validates the mock server and the private Rubric Compiler).",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "types": "./src/index.ts",
+  "files": ["dist", "src"],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src --ext .ts",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@career-intelligence/fixtures": "workspace:*",
+    "@career-intelligence/provider": "workspace:*",
+    "@career-intelligence/types": "workspace:*"
+  },
+  "peerDependencies": {
+    "vitest": ">=2"
+  },
+  "devDependencies": {
+    "@career-intelligence/client": "workspace:*",
+    "@career-intelligence/local-engine": "workspace:*",
+    "@career-intelligence/mock-server": "workspace:*",
+    "tsup": "^8.3.5",
+    "vitest": "^2.1.8"
+  }
+}
