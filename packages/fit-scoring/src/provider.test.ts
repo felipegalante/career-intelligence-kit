@@ -27,7 +27,7 @@ const fakeRubric: FitScoringProvider = {
     Promise.resolve({ available: true, provider: "rubric", scoringMode: "lightweight_score" }),
 };
 
-describe("selectFitScoringProvider (§23.11)", () => {
+describe("selectFitScoringProvider", () => {
   it("prefers the rubric provider when enabled + healthy", async () => {
     const p = selectFitScoringProvider({
       rubricEnabled: true,

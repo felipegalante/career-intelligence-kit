@@ -1,4 +1,4 @@
-// @ijb/fit-scoring — the provider boundary for resume-aware fit scoring (M8-S1).
+// @ijb/fit-scoring — the provider boundary for resume-aware fit scoring.
 export type {
   ScoreableJob,
   ScoreBatchInput,

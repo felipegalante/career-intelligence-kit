@@ -1,9 +1,8 @@
 import type { Seniority } from "@career-intelligence/types";
 
-// Seniority inference (M5-S2, §19.2). Deterministic patterns over the title, with
+// Seniority inference. Deterministic patterns over the title, with
 // a conservative years-of-experience fallback from the description. Returns `null`
 // for low-confidence cases (never guessed) — left for a later LLM pass.
-//
 
 // Checked in priority order: the most specific / most senior token wins.
 const TITLE_PATTERNS: Array<[Seniority, RegExp]> = [
@@ -43,7 +42,6 @@ export function inferSeniority(
 // Normalize a structured/free-text seniority token (e.g. Breezy's `experience`
 // mapping: internship / entry-level / associate / mid-level / senior-level /
 // executive) to the canonical union. Unrecognized → `null`.
-//
 export function normalizeSeniority(value: string | null | undefined): Seniority | null {
   if (!value) return null;
   const k = String(value).toLowerCase();

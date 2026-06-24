@@ -1,7 +1,6 @@
-// Title normalization (M5-S2, §19.2). Deterministic cleanup that strips ATS noise
+// Title normalization. Deterministic cleanup that strips ATS noise
 // — requisition IDs, trailing locations, emoji — while preserving the core role
 // phrase. Always returns a non-empty string (falls back to the trimmed raw title).
-//
 
 // Emoji / pictographs (built via RegExp() to keep the source ASCII-only).
 const EMOJI = new RegExp("\\p{Extended_Pictographic}", "gu");

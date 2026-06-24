@@ -1,4 +1,4 @@
-// Recency scoring (M9-S3, spec §13). Recent evidence counts more than old
+// Recency scoring. Recent evidence counts more than old
 // evidence: a skill used in the last two years is worth full credit; one last
 // touched a decade ago is discounted. Evidence with no datable range gets a
 // neutral 0.5 (we don't know — don't reward or punish).

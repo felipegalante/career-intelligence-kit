@@ -1,6 +1,6 @@
 import { SKILL_DICTIONARY, type SkillEntry } from "@career-intelligence/job-description-normalization";
 
-// Resume skill matcher. The M5-S3 job extractor (`extractSkills`) is
+// Resume skill matcher. The job extractor (`extractSkills`) is
 // section-driven (Requirements / Preferred / body) and returns a presence Set —
 // that's the wrong shape for resume tiering, which needs **counts** (frequency)
 // and **first position** (highlighted at the top vs. buried). So we reuse the

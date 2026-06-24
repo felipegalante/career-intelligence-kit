@@ -1,9 +1,9 @@
-// Seniority signals (M9-S1, spec §15). Seniority is read from two places, not
+// Seniority signals. Seniority is read from two places, not
 // just a title: title patterns AND responsibility signals in the bullets. Someone
 // with a "Senior" title but staff-level scope ("architected", "set engineering
 // standards", "drove technical direction across teams") reads higher than the
 // title alone; this module surfaces those responsibility signals so the rubric
-// (M9-S5) can combine them with `inferSeniority` (title-based, in enrich/).
+// can combine them with `inferSeniority` (title-based, in enrich).
 
 import type { Seniority } from "@career-intelligence/types";
 

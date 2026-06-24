@@ -1,11 +1,10 @@
-// Weighted rubric scoring engine. Turns the matching engine's output (M9-S4) into
+// Weighted rubric scoring engine. Turns the matching engine's output into
 // a transparent, weighted score. Each dimension scores in [0,1]; dimensions the
 // job doesn't exercise get a neutral baseline (the candidate isn't penalized for
 // what the role doesn't test). The base score is the weighted sum (weights total
 // 100); a role-relevance multiplier is applied by the caller so an off-domain
 // resume lands near zero.
-//
-// M14-S1: the rubric is the 6-dimension Job Match model (technical stack, seniority
+// the rubric is the 6-dimension Job Match model (technical stack, seniority
 // & scope, architecture, stakeholder fit, business orientation, communication &
 // multiplier) that backs the Job Match Report. Each dimension is a composite of the
 // underlying signal scorers (kept below as building blocks); the weights mirror the
@@ -237,7 +236,7 @@ export const DEFAULT_SOFTWARE_ENGINEERING_RUBRIC: Dimension[] = [
   { id: "multiplierCommunication", label: "Communication & Multiplier", weight: 15, score: scoreMultiplierCommunication },
 ];
 
-/** Coarse classification from a 0–100 score (spec §20). */
+/** Coarse classification from a 0–100 score. */
 export function classifyScore(score: number): MatchClassification {
   if (score >= 90) return "excellent_match";
   if (score >= 80) return "strong_match";
@@ -268,7 +267,7 @@ export function scoreRubric(input: ScoreRubricInput, roleRelevance = 1): ScoreBr
   };
 }
 
-/** Scoring confidence (spec §19): lower when parse quality or signal is thin. */
+/** Scoring confidence: lower when parse quality or signal is thin. */
 export function scoreConfidence(input: ScoreRubricInput): number {
   let c = 0.95;
   if (input.resume.parseConfidence < 0.7) c -= 0.15;

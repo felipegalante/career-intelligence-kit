@@ -44,7 +44,7 @@ describe("LocalResumeIntelligenceProvider", () => {
     expect(res.results[0]!.overallScore).toBeGreaterThan(0);
   });
 
-  it("generates a lightweight report (M9 fallback)", async () => {
+  it("generates a lightweight report (fallback)", async () => {
     const r = await provider.generateReport({
       resumeProfileId: "r1",
       jobPostingId: "a",

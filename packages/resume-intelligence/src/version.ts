@@ -11,14 +11,14 @@ import {
   SENIORITY_RANK,
 } from "./weights";
 
-// Versioning for the §23.8 scoring cache. The cache key includes
+// Versioning for the scoring cache. The cache key includes
 // `rubric_engine_version`, `rubric_config_version`, and `scoring_mode`; bumping
 // any of them invalidates cached scores. The local engine derives its config
 // version from the inputs that actually change a score — the skill dictionary
 // and the tier weights — so a curated dictionary expansion or a weight tweak
 // transparently forces a recompute.
 
-// Bumped to 0.4.0 for the canonical 6-dimension Job Match rubric (M14-S1): the
+// Bumped to 0.4.0 for the canonical 6-dimension Job Match rubric: the
 // rubric now aggregates the evidence signals into the six report dimensions
 // (technical stack, seniority & scope, architecture, stakeholder fit, business
 // orientation, communication & multiplier) and adds an ATS-style score. The bump
@@ -39,7 +39,7 @@ function stableHash(input: string): string {
 export const LOCAL_CONFIG_VERSION = `cfg-${stableHash(
   JSON.stringify({
     skills: SKILL_DICTIONARY.map((s) => s.normalizedName).sort(),
-    // M9: the structured taxonomy (adjacency) and the rubric dimension weights now
+    // the structured taxonomy (adjacency) and the rubric dimension weights now
     // affect every score, so they belong in the config-version hash too.
     skillMeta: Object.keys(SKILL_META).sort(),
     rubric: DEFAULT_SOFTWARE_ENGINEERING_RUBRIC.map((d) => [d.id, d.weight]),

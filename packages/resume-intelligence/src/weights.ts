@@ -1,4 +1,4 @@
-// Tier weights for the in-house scorer. Job tiers come from M5-S3 enrichment
+// Tier weights for the in-house scorer. Job tiers come from enrichment
 // (required / preferred / inferred); resume tiers come from the parser. The
 // match score is a weighted overlap — a required job skill the candidate leads
 // with (Tier 1) contributes most; a merely-inferred job skill they barely
@@ -19,16 +19,14 @@ export const JOB_TIER_WEIGHTS: Record<JobTier, number> = {
   inferred: 0.3,
 };
 
-// ---- Composite rubric (M8+) ----------------------------------------------
+// ---- Composite rubric ----------------------------------------------
 // The match is no longer pure skill overlap. A fit blends three additive
 // components (skill overlap, how many *required* skills are met, and seniority
 // fit) and is then scaled by a role-relevance multiplier so an off-domain resume
 // (e.g. a sales CV against an engineering role) lands near zero while a missing
 // skill only *lowers* — never zeroes — an otherwise-relevant candidate.
-//
-//   fit = roleRelevance × Σ(wᵢ·componentᵢ) / Σwᵢ      (weights renormalize when
+//   fit = roleRelevance × Σ(wᵢ·componentᵢ) / Σwᵢ (weights renormalize when
 //                                                       a component is unknown)
-//
 // Tunable — these constants feed the config-version hash, so changing them
 // transparently invalidates cached scores.
 export const COMPONENT_WEIGHTS = {

@@ -1,9 +1,8 @@
-// Requirement-phrase taxonomy (M9-S1, spec §9). Classifies a single requirement
+// Requirement-phrase taxonomy. Classifies a single requirement
 // line by how strongly the job demands it — mandatory vs. merely preferred vs. a
-// responsibility statement. The job requirement graph (M9-S2) tags each line, and
-// the rubric (M9-S5) weights matches by importance (a missing mandatory hurts far
+// responsibility statement. The job requirement graph tags each line, and
+// the rubric weights matches by importance (a missing mandatory hurts far
 // more than a missing bonus).
-//
 // This is line-level intent classification, complementary to the section-level
 // bucketing already done by `extractSkills` (Requirements / Preferred / body).
 
@@ -79,7 +78,7 @@ export function classifyRequirementImportance(text: string): RequirementImportan
   return "inferred";
 }
 
-/** Relative weight of a requirement's importance (spec §18.2), in (0,1]. */
+/** Relative weight of a requirement's importance, in (0,1]. */
 export function requirementImportanceWeight(importance: RequirementImportance): number {
   switch (importance) {
     case "mandatory":

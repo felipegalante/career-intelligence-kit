@@ -1,6 +1,6 @@
-// Deterministic tailoring recommendations (M9-S6, spec §22). Template-based, never
+// Deterministic tailoring recommendations. Template-based, never
 // LLM-generated and never fabricated: the engine maps each typed gap to a concrete,
-// honest suggestion. The cardinal rule (spec §22) — never tell the candidate to
+// honest suggestion. The cardinal rule — never tell the candidate to
 // claim a skill as if they have it; skill-adding advice is always "add only if true".
 
 import type { FitGap, FitRecommendation, RecommendationType } from "@career-intelligence/fit-scoring";

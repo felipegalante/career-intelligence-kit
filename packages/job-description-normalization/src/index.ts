@@ -1,6 +1,5 @@
 // @career-intelligence/job-description-normalization — deterministic JD-to-score-
 // profile normalization extracted from Intelligent Job Board's `@ijb/job-normalization`.
-//
 // This package owns ONLY the job-description/scoring-oriented pieces: title/seniority/
 // role-family inference, skill extraction + dictionary, the requirement graph
 // (`extractJobProfile`), the scoring taxonomy, and location parsing used for scoring
@@ -18,7 +17,7 @@ export {
   type RequirementType,
 } from "./enrich/skills";
 
-// Job requirement graph (M9-S2): turns a cleaned JD into a structured JobProfile.
+// Job requirement graph: turns a cleaned JD into a structured JobProfile.
 export {
   extractJobProfile,
   splitJobSections,
@@ -39,7 +38,7 @@ export {
   type RelatedSkill,
 } from "./enrich/skills-dictionary";
 
-// Structured taxonomy (M9-S1): skill adjacency, domains, action verbs, seniority
+// Structured taxonomy: skill adjacency, domains, action verbs, seniority
 // signals, requirement-phrase classification.
 export {
   SKILL_META,

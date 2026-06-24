@@ -1,4 +1,4 @@
-// Typed gap analysis (M9-S6, spec §21). Instead of a flat "missing keywords" list,
+// Typed gap analysis. Instead of a flat "missing keywords" list,
 // classify each shortfall: a truly absent mandatory skill is a different problem
 // from a skill the resume *demonstrates through adjacent work* but never names, or
 // a skill that's listed but never tied to real experience. Each gap carries a

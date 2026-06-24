@@ -1,13 +1,11 @@
 import { SKILL_DICTIONARY, type SkillEntry } from "./skills-dictionary";
 
-// Deterministic skill extraction (M5-S3, §17.6–17.7, §19.2).
-//
-// Splits the cleaned posting text (from M5-S1, which puts headings on their own
+// Deterministic skill extraction (–17.7).
+// Splits the cleaned posting text (from, which puts headings on their own
 // line and list items as `"- "` bullets) into required / preferred / body
 // sections, then alias-matches the seed dictionary against each. A skill is
 // assigned a single `requirementType` — the strongest section it appears in:
 //   required (0.9) > preferred (0.75) > inferred (body, 0.5).
-//
 
 export type RequirementType = "required" | "preferred" | "inferred";
 
@@ -54,7 +52,6 @@ function classifyHeader(line: string): "required" | "preferred" | "neutral" | nu
 // alphanumeric only, so punctuated aliases ("c++", "c#", "node.js") match while
 // trailing punctuation ("Kafka.") doesn't block, and embedded matches don't fire
 // ("reactive" ≠ react, "postgresql" ≠ sql).
-//
 const aliasRegexCache = new Map<string, RegExp>();
 function aliasRegex(alias: string): RegExp {
   let re = aliasRegexCache.get(alias);
@@ -80,7 +77,7 @@ function matchSkills(text: string, dictionary: readonly SkillEntry[]): Set<strin
 
 /**
  * Normalized names of every dictionary skill present in `text` (presence only,
- * no section logic). Used by the job requirement graph (M9-S2) to tag individual
+ * no section logic). Used by the job requirement graph to tag individual
  * requirement lines, where section bucketing has already happened upstream.
  */
 export function matchSkillIds(

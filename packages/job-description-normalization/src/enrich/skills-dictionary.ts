@@ -1,14 +1,12 @@
-// Seed skill dictionary (M5-S3, §19.2). Deterministic, dictionary-driven skill
+// Seed skill dictionary. Deterministic, dictionary-driven skill
 // extraction matches these aliases against posting text. This is intentionally a
 // curated seed — taxonomy expansion (and an LLM-assisted pass) is later/optional.
-//
 // Curation rules to keep precision high:
 // - aliases are matched as whole tokens, case-insensitively;
 // - avoid bare single/common-word aliases that collide with English prose
 //   (e.g. use "golang" for Go, not "go"); aliases with punctuation like "c++",
 //   "c#", "node.js" are matched with token-boundary lookarounds, not `\b`.
-//
-/** Broad family a skill belongs to (M9-S1). Optional metadata. */
+/** Broad family a skill belongs to. Optional metadata. */
 export type SkillCategory =
   | "language"
   | "frontend"
@@ -29,7 +27,7 @@ export type SkillCategory =
   | "methodology"
   | "tool";
 
-/** How one skill relates to another (M9-S1), strongest → weakest transfer. */
+/** How one skill relates to another, strongest → weakest transfer. */
 export type SkillRelationship =
   | "same_ecosystem"
   | "adjacent"
@@ -52,12 +50,12 @@ export interface SkillEntry {
   normalizedName: string;
   // Alternate spellings matched against text (includes the canonical name).
   aliases: string[];
-  // ---- Structured taxonomy (M9-S1), all optional ---------------------------
+  // ---- Structured taxonomy, all optional ---------------------------
   // The deterministic rubric reads these for adjacent-skill credit and context
   // matching. Populated for the common software-engineering seed (see
   // `taxonomy/skill-graph.ts`); the long tail carries name/aliases only. Kept as
   // a *separate* metadata map rather than inlined here so the dictionary's
-  // normalized-name set — and thus the M8 fit-cache config hash — stays stable.
+  // normalized-name set — and thus the fit-cache config hash — stays stable.
   /** Broad family (language, framework, database, …). */
   category?: SkillCategory;
   /** Work contexts this skill implies (backend, apis, distributed_systems, …). */
@@ -147,7 +145,7 @@ export const SKILL_DICTIONARY: SkillEntry[] = [
   { name: "Databricks", normalizedName: "databricks", aliases: ["databricks"] },
   { name: "BigQuery", normalizedName: "bigquery", aliases: ["bigquery", "big query"] },
 
-  // --- Expanded taxonomy (M5) -------------------------------------------------
+  // --- Expanded taxonomy -------------------------------------------------
   // Same precision discipline: every alias below is a distinctive, whole-token
   // technology term. Bare words that collide with English prose (e.g. "chef",
   // "gin", "echo", "vault", "lambda") are either omitted or qualified

@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { extractJobProfile, splitJobSections } from "./extractJob";
 
-// A realistic cleaned JD (M5-S1 shape: headings on their own line, "- " bullets).
+// A realistic cleaned JD (shape: headings on their own line, "- " bullets).
 const BACKEND_JD = `Senior Backend Engineer
 
 About the role

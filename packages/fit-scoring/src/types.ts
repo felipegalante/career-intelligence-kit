@@ -1,19 +1,18 @@
-// Shared types for the fit-scoring boundary (M8-S1). This package owns the
+// Shared types for the fit-scoring boundary. This package owns the
 // *interface* between the Job Board and any resume-fit provider — the in-house
-// local provider (`@ijb/resume-intelligence`, M8-S2) and the external
-// rubric-compiler (M12) both implement `FitScoringProvider`. It carries no I/O
+// local provider (`@ijb/resume-intelligence`) and the external
+// rubric-compiler both implement `FitScoringProvider`. It carries no I/O
 // and no provider-specific imports, so it can never form a dependency cycle.
-//
-// The result shape mirrors §23.5 so the external contract slots in unchanged.
+// The result shape mirrors so the external contract slots in unchanged.
 // (It was originally aligned with the retired `job_fit_scores` columns; fit is
-// now computed on-read everywhere — M15.)
+// now computed on-read everywhere —.)
 
 /** A job, reduced to the fields a provider needs to score it. */
 export interface ScoreableJob {
   id: string;
   title: string;
   descriptionText?: string;
-  /** Job Tier 1 — enriched `requirement_type = 'required'` skills (M5-S3). */
+  /** Job Tier 1 — enriched `requirement_type = 'required'` skills. */
   requiredSkills: string[];
   /** Job Tier 2 — enriched `requirement_type = 'preferred'` skills. */
   preferredSkills: string[];
@@ -41,7 +40,7 @@ export interface ScoreBatchInput {
   mode?: string;
 }
 
-/** A coarse match label derived from the overall score (M9-S5, spec §20). */
+/** A coarse match label derived from the overall score. */
 export type MatchClassification =
   | "excellent_match"
   | "strong_match"
@@ -50,7 +49,7 @@ export type MatchClassification =
   | "weak_match"
   | "poor_match";
 
-/** One rubric dimension's contribution (M9-S5, spec §17/§18). */
+/** One rubric dimension's contribution. */
 export interface RubricDimensionScore {
   id: string;
   label: string;
@@ -61,7 +60,7 @@ export interface RubricDimensionScore {
   weightedScore: number;
 }
 
-/** The weighted-rubric breakdown behind an overall score (M9-S5). */
+/** The weighted-rubric breakdown behind an overall score. */
 export interface ScoreBreakdown {
   dimensions: RubricDimensionScore[];
   /** 0–100 before any role-relevance multiplier. */
@@ -71,14 +70,14 @@ export interface ScoreBreakdown {
   roleRelevance: number;
 }
 
-/** A surfaced strength: a requirement well-supported by resume evidence (M9-S5). */
+/** A surfaced strength: a requirement well-supported by resume evidence. */
 export interface FitStrength {
   label: string;
   /** Short evidence snippets / matched skills supporting it. */
   evidence: string[];
 }
 
-/** An eligibility-gate outcome surfaced on a fit result (M9-S5, spec §16). */
+/** An eligibility-gate outcome surfaced on a fit result. */
 export interface FitGateResult {
   id: string;
   label: string;
@@ -86,7 +85,7 @@ export interface FitGateResult {
   reason: string;
 }
 
-/** Typed gap categories (M9-S6, spec §21). */
+/** Typed gap categories. */
 export type GapType =
   | "missing_mandatory_skill"
   | "weak_evidence"
@@ -99,7 +98,7 @@ export type GapType =
 
 export type GapSeverity = "critical" | "major" | "moderate" | "minor";
 
-/** An explainable gap between the job and the resume (M9-S6, spec §21). */
+/** An explainable gap between the job and the resume. */
 export interface FitGap {
   type: GapType;
   severity: GapSeverity;
@@ -111,7 +110,7 @@ export interface FitGap {
   addOnlyIfTrue: string[];
 }
 
-/** Deterministic tailoring recommendation types (M9-S6, spec §22). */
+/** Deterministic tailoring recommendation types. */
 export type RecommendationType =
   | "add_keyword_if_true"
   | "strengthen_evidence"
@@ -126,7 +125,7 @@ export interface FitRecommendation {
   rationale: string;
 }
 
-/** Per-job fit result — the engine's compact output, computed on-read (M15). */
+/** Per-job fit result — the engine's compact output, computed on-read. */
 export interface JobFitResult {
   jobId: string;
   /** 0–100. */
@@ -134,7 +133,7 @@ export interface JobFitResult {
   /**
    * 0–100 ATS-style alignment: how explicitly the resume names the job's required
    * skills (keyword coverage) blended with parseability. Distinct from
-   * `overallScore` (match quality). Filled by the in-house rubric engine (M14-S1).
+   * `overallScore` (match quality). Filled by the in-house rubric engine.
    */
   atsScore?: number;
   /** 0–1. */
@@ -146,22 +145,22 @@ export interface JobFitResult {
   /** Count of required skills absent from the resume — feeds `classifyHotness`. */
   missingHardGates: number;
   explanationSummary: string;
-  // ---- Deterministic rubric output (M9-S5+), all optional ------------------
+  // ---- Deterministic rubric output, all optional ------------------
   // The lightweight providers may omit these; the in-house rubric engine fills
-  // them in. Surfaced in the report/detail UI (computed on-read, M15).
+  // them in. Surfaced in the report/detail UI (computed on-read).
   classification?: MatchClassification;
   breakdown?: ScoreBreakdown;
   strengths?: FitStrength[];
   gates?: FitGateResult[];
-  /** A compact subset of typed gaps (M9-S6) — the full set is in the report. */
+  /** A compact subset of typed gaps — the full set is in the report. */
   gaps?: FitGap[];
-  /** A compact subset of tailoring recommendations (M9-S6). */
+  /** A compact subset of tailoring recommendations. */
   recommendations?: FitRecommendation[];
 }
 
 export interface ScoreBatchResult {
   results: JobFitResult[];
-  /** Provider/engine version — part of the §23.8 cache key. */
+  /** Provider/engine version — part of the cache key. */
   rubricEngineVersion: string;
   /** Provider config version (e.g. dictionary+weights hash) — part of the cache key. */
   rubricConfigVersion: string;
@@ -196,7 +195,7 @@ export interface FitScoringHealth {
 }
 
 /**
- * The cache-key identity of a provider (§23.8). Returned synchronously so the
+ * The cache-key identity of a provider. Returned synchronously so the
  * worker can decide whether a job already has an up-to-date score *before*
  * calling `scoreBatch` (which, for the external provider, is an expensive
  * network call). Bumping any field invalidates cached scores.
@@ -214,7 +213,7 @@ export interface FitProviderDescriptor {
  * partial data, so a disabled integration can never silently corrupt the cache.
  */
 export interface FitScoringProvider {
-  /** The provider's cache-key identity (§23.8); cheap + synchronous. */
+  /** The provider's cache-key identity; cheap + synchronous. */
   describe(): FitProviderDescriptor;
   health(): Promise<FitScoringHealth>;
   scoreBatch(input: ScoreBatchInput): Promise<ScoreBatchResult>;

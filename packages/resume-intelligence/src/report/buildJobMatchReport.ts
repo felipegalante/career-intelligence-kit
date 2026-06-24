@@ -1,4 +1,4 @@
-// Deterministic Job Match Report builder (M14-S2). Transforms the in-house engine's
+// Deterministic Job Match Report builder. Transforms the in-house engine's
 // analysis (scores, 6-dim rubric, matches, typed gaps, recommendations, gates) plus
 // job role-context into the structured `JobMatchReport` the UI renders. No LLM, no
 // external services, no fabrication: data that isn't available is reported as

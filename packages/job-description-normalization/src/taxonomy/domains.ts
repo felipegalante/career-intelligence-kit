@@ -1,10 +1,9 @@
-// Business/product domain taxonomy (M9-S1, spec §14). Domains let the rubric give
+// Business/product domain taxonomy. Domains let the rubric give
 // deterministic credit for *context* fit, not just hard skills: a job in
 // "billing & payments" should reward a resume that mentions Stripe, subscriptions,
 // and entitlements even if it never says "billing platform". Aliases are matched
 // as whole tokens (same discipline as the skill dictionary); `related` edges carry
 // adjacency weight for partial credit.
-//
 // Focused software-engineering seed — expandable later.
 
 /** An adjacency edge between two domains, by `id`. */

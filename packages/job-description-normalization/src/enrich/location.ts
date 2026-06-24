@@ -1,17 +1,14 @@
-// Location parsing (M5-S4, §19). Deterministic, conservative parsing of a raw
+// Location parsing. Deterministic, conservative parsing of a raw
 // location string (e.g. ATS `location`) into country / region / city. Unknown
 // parts are left null (never guessed). Country is normalized to ISO-3166-1
 // alpha-2; US states to their 2-letter code with country "US".
-//
 // Ambiguity note: bare 2-letter tokens are treated as US state codes (the
 // dominant ATS convention, e.g. "San Francisco, CA"); spell out the country
 // ("Berlin, Germany") for non-US locations.
-//
-// M6-S13 hardening: strip parenthesized arrangement hints ("United States
+// hardening: strip parenthesized arrangement hints ("United States
 // (Remote)"), strip leading "Remote in/from/across" prefixes ("Remote in the
 // US"), and accept "the X" country aliases. These are the forms that real
 // ATS pages emit and the earlier parser dropped into `country: null`.
-//
 export interface ParsedLocation {
   country: string | null;
   region: string | null;

@@ -25,12 +25,12 @@ import { buildTailoringHints } from "./report/buildTailoringHints";
 import { scoreConfidence, scoreRubric } from "./score/scoreRubric";
 import { ROLE_ADJACENCY, ROLE_RELEVANCE, SENIORITY_RANK } from "./weights";
 
-// The in-house rubric scorer (M9-S5). The fit now comes from a deterministic
-// 10-dimension weighted rubric (spec §17/§18) over the matching engine's output
+// The in-house rubric scorer. The fit now comes from a deterministic
+// 10-dimension weighted rubric over the matching engine's output
 // (exact / adjacent / missing skills, domain overlap, seniority, gates), then
 // scaled by a role-relevance multiplier so an off-domain resume lands near zero.
 // The legacy `JobFitResult` fields (matched/missing required+preferred,
-// missingHardGates, explanationSummary) stay populated for the M8 worker, the
+// missingHardGates, explanationSummary) stay populated for the worker, the
 // hotness gate, search ranking, and the existing UI.
 
 function partition(jobSkills: string[], resumeSkills: Set<string>): { matched: string[]; missing: string[] } {
@@ -45,7 +45,7 @@ const rank = (s: string | null | undefined): number => (s ? (SENIORITY_RANK[s] ?
 // Deterministic ATS-style score (0–100): how explicitly the resume names the job's
 // required skills (exact keyword coverage) blended with resume parseability. Falls
 // back to the preferred tier when a job lists no required skills. Distinct from the
-// rubric's match-quality score (M14-S1).
+// rubric's match-quality score.
 function atsScore(
   required: { matched: string[]; missing: string[] },
   preferred: { matched: string[]; missing: string[] },
@@ -151,7 +151,7 @@ export interface ScoreJobOptions {
  * The full deterministic analysis behind a fit result: the compact `result` plus
  * the matching engine output, the job requirement graph, and the *complete* gap +
  * recommendation lists (the result carries only a compact subset). The Job Match
- * Report builder (M14-S2) consumes this; `scoreJob` projects just the `result`.
+ * Report builder consumes this; `scoreJob` projects just the `result`.
  */
 export interface JobAnalysis {
   result: JobFitResult;
@@ -169,7 +169,7 @@ const EMPTY_MATCHES: EvidenceMatchResult = {
   resumeDomains: [],
 };
 
-/** Compact projection used everywhere fit is persisted/displayed (M8/M9). */
+/** Compact projection used everywhere fit is persisted/displayed. */
 export function scoreJob(profile: CandidateProfile, job: ScoreableJob, opts: ScoreJobOptions): JobFitResult {
   return analyzeJob(profile, job, opts).result;
 }
@@ -186,7 +186,7 @@ export function analyzeJob(
   ]);
   const evidence = profile.evidence ?? [];
 
-  // Legacy fields stay aligned with the stored enriched tiers (M5-S3) and the
+  // Legacy fields stay aligned with the stored enriched tiers and the
   // hotness gate: matched/missing are *exact* presence, not adjacency.
   const required = partition(job.requiredSkills, resumeSkills);
   const preferred = partition(job.preferredSkills, resumeSkills);
@@ -274,7 +274,7 @@ export function analyzeJob(
     reason: g.reason,
   }));
 
-  // Typed gaps + deterministic tailoring recommendations (M9-S6). The batch result
+  // Typed gaps + deterministic tailoring recommendations. The batch result
   // carries a compact subset; the full set is produced by `generateReport`.
   const gaps = buildGapAnalysis({ matches });
   const recommendations = buildTailoringHints(gaps);

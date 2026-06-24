@@ -42,7 +42,7 @@ describe("adjacentSkillWeight", () => {
     expect(adjacentSkillWeight("typescript", "nodejs")).toBeGreaterThan(0);
   });
 
-  it("gives Kafka adjacent credit to event-driven / async evidence (spec §25)", () => {
+  it("gives Kafka adjacent credit to event-driven / async evidence", () => {
     // The canonical example: Kafka absent, but event-driven present → partial.
     const w = adjacentSkillWeight("kafka", "event-driven");
     expect(w).toBeGreaterThan(0);
