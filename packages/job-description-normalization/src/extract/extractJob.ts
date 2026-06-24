@@ -1,11 +1,10 @@
-// Job requirement graph (M9-S2, spec §6.2/§8/§9/§16). Turns a cleaned job
+// Job requirement graph. Turns a cleaned job
 // description into a structured `JobProfile`: sections, per-requirement importance
 // + skills + domains + seniority signals, an aggregated skill list, and explicit
-// eligibility gates. Deterministic — reuses the M5 enrichers (`inferSeniority`,
-// `inferRoleFamily`) and the M9-S1 taxonomy (skills, domains, seniority signals,
+// eligibility gates. Deterministic — reuses the enrichers (`inferSeniority`,
+// `inferRoleFamily`) and the taxonomy (skills, domains, seniority signals,
 // requirement-phrase classification). No LLM.
-//
-// Compliance (spec §16): gates are derived only from explicit, job-related
+// Compliance: gates are derived only from explicit, job-related
 // requirements (years, work authorization, clearance, certification, language,
 // employment type, location). We never infer protected attributes.
 
@@ -98,7 +97,7 @@ export interface ExtractJobOptions {
   contextText?: string;
 }
 
-// Section-header keywords (spec §8.2). Preferred and neutral-ish sections are
+// Section-header keywords. Preferred and neutral-ish sections are
 // checked before requirements so "Preferred qualifications" / "What we offer"
 // aren't captured by the broad requirements keywords.
 const SECTION_HEADERS: Array<[JobSectionName, RegExp]> = [
@@ -207,9 +206,8 @@ function detectGate(text: string): JobGate | null {
 
 /**
  * Build a structured `JobProfile` from cleaned job description text.
- * `text` is expected to be M5-S1 output (headings on their own line, list items
+ * `text` is expected to be output (headings on their own line, list items
  * as `"- "` bullets), but the splitter degrades gracefully on raw prose.
- *
  * Deterministic: requirement ids are positional (`req-1`, `req-2`, …) per call,
  * so identical input always yields an identical profile.
  */

@@ -43,8 +43,8 @@ describe("parseLocation", () => {
     expect(parseLocation("San Francisco")).toEqual({ country: null, region: null, city: "San Francisco" });
   });
 
-  // M6-S13: real ATS strings the original parser silently dropped to country=null.
-  describe("M6-S13 hardening — real-world phrasings", () => {
+  // real ATS strings the original parser silently dropped to country=null.
+  describe("hardening — real-world phrasings", () => {
     it.each([
       ["United States (Remote)", "US"],
       ["United States (remote)", "US"],

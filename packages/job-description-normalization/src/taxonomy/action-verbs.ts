@@ -1,8 +1,7 @@
-// Action-verb taxonomy (M9-S1, spec §12). Evidence in a resume is stronger when a
+// Action-verb taxonomy. Evidence in a resume is stronger when a
 // skill is tied to a real accomplishment verb ("architected", "scaled") than when
 // it just sits in a skills list. Each verb carries an evidence-strength boost; the
-// resume evidence graph (M9-S3) sums the boosts of the verbs it finds in a bullet.
-//
+// resume evidence graph sums the boosts of the verbs it finds in a bullet.
 // Keys are lemmas; the matcher also accepts the common inflections (-ed/-d/-ing/-s)
 // so "design", "designed", "designing" all resolve to the "designed" boost.
 

@@ -1,7 +1,7 @@
-// Evidence-strength scoring (M9-S3, spec §12). A skill named in a skills list is
+// Evidence-strength scoring. A skill named in a skills list is
 // weak evidence; the same skill tied to an experience bullet with an action verb,
 // a metric, and business context is strong. The score (0–5) lets the matching
-// engine (M9-S4) and rubric (M9-S5) prefer real, owned work over keyword stuffing.
+// engine and rubric prefer real, owned work over keyword stuffing.
 
 import { ACTION_VERB_BOOST } from "@career-intelligence/job-description-normalization";
 
@@ -32,7 +32,7 @@ export function extractMetrics(text: string): string[] {
 /**
  * Evidence strength in [0,5]: base by source section, plus boosts for strong
  * action verbs, measurable outcomes, business-domain context, and seniority
- * signals (spec §12).
+ * signals.
  */
 export function scoreEvidenceStrength(
   evidence: Pick<

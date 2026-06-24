@@ -1,4 +1,4 @@
-// Structured taxonomy (M9-S1) — the deterministic-rubric metadata layered over
+// Structured taxonomy — the deterministic-rubric metadata layered over
 // the flat skill dictionary: skill adjacency, business domains, action verbs,
 // seniority signals, and requirement-phrase classification.
 

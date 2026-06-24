@@ -1,8 +1,8 @@
-// Hot-job classification + score banding (§23.9). Pure and provider-independent
-// so every provider (local + rubric-compiler) and the M8-S5 worker share one
+// Hot-job classification + score banding. Pure and provider-independent
+// so every provider (local + rubric-compiler) and the worker share one
 // definition. `classifyHotness` is an exact transcription of the spec's
 // reference implementation — do not "improve" the boundaries without updating
-// §23.9 and the tests.
+// and the tests.
 
 export type Hotness = "hot" | "strong" | "possible" | "low_fit" | "unknown";
 

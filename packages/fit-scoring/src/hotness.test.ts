@@ -10,7 +10,7 @@ const base = {
   confidence: 0.9,
 };
 
-describe("classifyHotness (§23.9)", () => {
+describe("classifyHotness", () => {
   it("returns unknown when inactive, regardless of score", () => {
     expect(classifyHotness({ ...base, isActive: false })).toBe("unknown");
   });

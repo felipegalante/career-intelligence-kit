@@ -1,10 +1,9 @@
 import type { RoleFamily } from "@career-intelligence/types";
 
-// Role-family inference (M5-S2, §19.2). Deterministic keyword patterns over the
+// Role-family inference. Deterministic keyword patterns over the
 // (normalized) title, falling back to the department. Checked in an order that
 // resolves common cross-family ambiguity (e.g. "Data Engineer" → data, "Product
 // Engineer" → engineering, "Product Manager" → product). Unknown → `null`.
-//
 const PATTERNS: Array<[RoleFamily, RegExp]> = [
   [
     "data",

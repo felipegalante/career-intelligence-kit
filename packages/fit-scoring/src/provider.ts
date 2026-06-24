@@ -49,13 +49,13 @@ export class NullFitScoringProvider extends UnavailableProvider {
 
 /**
  * Placeholder for the external rubric-compiler client. The real HTTP client
- * (API-key auth, timeout/retry/backoff, contract tests) lands in M12 once the
- * owner provides the contract; until then it reports unavailable so the rest of
- * M8 can be built and tested against the local provider.
+ * (API-key auth, timeout/retry/backoff, contract tests) is not yet wired up;
+ * until then this stub reports unavailable so the rest of the system can be
+ * built and tested against the local provider.
  */
 export class RubricCompilerStub extends UnavailableProvider {
   protected readonly providerId = "rubric-compiler";
-  protected readonly detail = "rubric-compiler integration not implemented yet (M12)";
+  protected readonly detail = "rubric-compiler integration not yet implemented";
 }
 
 export interface SelectFitScoringProviderOptions {
@@ -64,14 +64,14 @@ export interface SelectFitScoringProviderOptions {
   /** Result of a recent `rubricProvider.health()` check. */
   rubricHealthy?: boolean;
   rubricProvider?: FitScoringProvider;
-  /** The in-house provider (M8-S2). When present, it's the fallback. */
+  /** The in-house provider. When present, it's the fallback. */
   localProvider?: FitScoringProvider;
 }
 
 /**
  * Pick the active provider: the external rubric-compiler when it's enabled and
  * healthy, otherwise the local in-house provider, otherwise a null provider.
- * This is the §23.11 failure behaviour — resume-aware features degrade to the
+ * This is the failure behaviour — resume-aware features degrade to the
  * local engine (or off) rather than erroring.
  */
 export function selectFitScoringProvider(

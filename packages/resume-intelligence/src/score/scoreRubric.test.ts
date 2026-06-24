@@ -55,11 +55,11 @@ describe("rubric structure", () => {
   });
 });
 
-describe("rubric sensitivity (spec §27.4)", () => {
+describe("rubric sensitivity", () => {
   it("gives adjacent-skill credit in core technical skills (Kafka via distributed systems)", () => {
     // The resume never says "Kafka" but does say "distributed systems" (a related
     // skill) → partial credit; COBOL has no resume relation → zero. This is the
-    // core spec §25 behavior, measured on the dimension it affects.
+    // core spec behavior, measured on the dimension it affects.
     const tech = (j: ScoreableJob) =>
       scoreJob(profile, j, opts).breakdown!.dimensions.find((d) => d.id === "technicalStack")!.rawScore;
     const kafka = tech(job({ requiredSkills: ["kafka"] }));

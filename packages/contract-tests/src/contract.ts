@@ -36,10 +36,9 @@ function assertMetadata(metadata: IntelligenceResultMetadata): void {
 
 /**
  * Register the Career Intelligence contract suite for a provider.
- *
- * @param label   Human label for the implementation under test.
- * @param make    Factory returning the provider (sync or async).
- * @param inputs  Sample resume/job inputs (defaults to the shared fixtures).
+ * @param label Human label for the implementation under test.
+ * @param make Factory returning the provider (sync or async).
+ * @param inputs Sample resume/job inputs (defaults to the shared fixtures).
  */
 export function runCareerIntelligenceContract(
   label: string,

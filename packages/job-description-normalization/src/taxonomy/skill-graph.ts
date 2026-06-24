@@ -1,10 +1,9 @@
-// Structured skill metadata (M9-S1, spec §2/§10/§11). The flat `SKILL_DICTIONARY`
+// Structured skill metadata. The flat `SKILL_DICTIONARY`
 // stays the source of truth for *which* skills exist and how their aliases match;
 // this module layers the deterministic-rubric metadata on top — category, the
 // work contexts a skill implies, and adjacency edges for partial credit — keyed
 // by `normalizedName`. Keeping it separate keeps the dictionary's normalized-name
-// set (and the M8 fit-cache config hash) stable.
-//
+// set (and the fit-cache config hash) stable.
 // Focused software-engineering seed: the most common skills carry full metadata;
 // the long tail resolves to `undefined` and simply gets exact-match-only credit.
 
@@ -341,7 +340,7 @@ export function adjacentSkillWeight(fromId: string, toId: string): number {
 
 /**
  * Confidence that a matched alias is a real skill mention, not prose noise
- * (spec §11.1). Short/ambiguous aliases ("Go", "R", "AI") are riskier than
+ * . Short/ambiguous aliases ("Go", "R", "AI") are riskier than
  * long distinctive ones ("PostgreSQL", "Kubernetes").
  */
 export function aliasConfidence(alias: string): number {

@@ -11,7 +11,7 @@ export type {
 } from "./parse-resume";
 export { parseResume, isCandidateProfile } from "./parse-resume";
 
-// Evidence graph (M9-S3).
+// Evidence graph.
 export {
   buildEvidence,
   type ResumeEvidence,
@@ -22,11 +22,11 @@ export {
 export { scoreEvidenceStrength, extractMetrics } from "./score/scoreEvidence";
 export { scoreRecency, type EvidenceDateRange } from "./score/scoreRecency";
 
-// Gap analysis + tailoring recommendations (M9-S6).
+// Gap analysis + tailoring recommendations.
 export { buildGapAnalysis, type GapAnalysisInput } from "./report/buildGapAnalysis";
 export { buildTailoringHints } from "./report/buildTailoringHints";
 
-// Matching engine (M9-S4).
+// Matching engine.
 export {
   matchEvidence,
   type EvidenceMatchResult,
@@ -44,14 +44,14 @@ export { matchSkills, matchSkillNames, type SkillMatch } from "./skill-matcher";
 
 export { scoreJob, analyzeJob, type ScoreJobOptions, type JobAnalysis } from "./score";
 
-// On-read fit composition (M15) — score + hotness + band in one pure call.
+// On-read fit composition — score + hotness + band in one pure call.
 export {
   computeJobFit,
   type ComputedJobFit,
   type JobFreshness,
 } from "./computeJobFit";
 
-// Job Match Report builder (M14-S2).
+// Job Match Report builder.
 export {
   buildJobMatchReport,
   type BuildJobMatchReportInput,

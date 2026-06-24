@@ -1,4 +1,4 @@
-// Resume fixtures for tests. Plain text, as produced by the M8-S3 PDF/DOCX
+// Resume fixtures for tests. Plain text, as produced by the PDF/DOCX
 // extractor (headings on their own line).
 
 export const SENIOR_ENGINEER_RESUME = `Jane Doe

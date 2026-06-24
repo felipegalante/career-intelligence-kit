@@ -4,7 +4,7 @@ import { buildEvidence, type EvidenceRoleContext, type ResumeEvidence } from "./
 import { matchSkills, matchSkillNames } from "./skill-matcher";
 import { LOCAL_ENGINE_VERSION } from "./version";
 
-// In-house resume parser (M8-S2). Deterministic, heuristic, no LLM — builds a
+// In-house resume parser. Deterministic, heuristic, no LLM — builds a
 // `CandidateProfile` from extracted resume text. Tech tiers drive the match
 // score; titles, years-of-experience, and education are **display-only** (date
 // and degree parsing from free text is too noisy to put in a fit number — see
@@ -58,9 +58,9 @@ export interface CandidateProfile {
   /** Best-effort location parsed from the resume header (display + Hot Jobs filter). */
   location: CandidateLocation;
   /**
-   * Evidence graph (M9-S3): per-bullet typed evidence the rubric engine matches
+   * Evidence graph: per-bullet typed evidence the rubric engine matches
    * against. Optional for backward compatibility with profiles persisted before
-   * M9 — consumers should read `evidence ?? []`. `parseResume` always populates it.
+   * consumers should read `evidence ?? []`. `parseResume` always populates it.
    */
   evidence?: ResumeEvidence[];
   /** 0–1 — how much signal we could extract; feeds scoring confidence. */
@@ -383,7 +383,7 @@ export function parseResume(text: string, opts?: { now?: Date }): CandidateProfi
     hasEducation: education.length > 0,
   });
 
-  // Evidence graph (M9-S3). Role context (title + date range) is only meaningful
+  // Evidence graph. Role context (title + date range) is only meaningful
   // when an experience section was recognized, where `ranges`/`expLines` align.
   const hasExpSection = sections.byKind.experience.length > 0;
   const iso = (d: Date) => d.toISOString().slice(0, 10);

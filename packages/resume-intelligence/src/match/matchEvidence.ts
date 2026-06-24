@@ -1,4 +1,4 @@
-// Matching engine (M9-S4, spec §11/§14/§25). Walks a job's requirements against a
+// Matching engine. Walks a job's requirements against a
 // resume's evidence graph and produces explainable matches:
 //   - skills: exact, alias (already collapsed to `normalizedName`), or *adjacent*
 //     (Kafka absent but event-driven present → partial credit), each backed by the
@@ -7,7 +7,7 @@
 //   - seniority: title level combined with responsibility signals (a "Senior" who
 //     architected and owned end-to-end reads higher than the title alone);
 //   - gates: explicit eligibility checks (years now; others reported `unknown`
-//     because they aren't determinable from resume text — spec §16).
+//     because they aren't determinable from resume text — spec ).
 
 import {
   adjacentDomainWeight,
@@ -215,7 +215,7 @@ function matchGates(resume: MatchResumeInput, job: MatchJobInput): GateMatch[] {
     }
     // Location, work auth, clearance, certification, language, employment type are
     // not reliably determinable from resume text — report honestly as unknown
-    // rather than inferring (spec §16).
+    // rather than inferring.
     return { id: gate.id, status: "unknown", reason: `${gate.label} not determinable from resume.` };
   });
 }

@@ -13,7 +13,7 @@ import { scoreJob } from "./score";
 import { LOCAL_CONFIG_VERSION, LOCAL_ENGINE_VERSION, LOCAL_SCORING_MODE } from "./version";
 
 // The in-house provider. Always available (no external dependency), so it's the
-// permanent fallback when the rubric-compiler (M12) is off or unhealthy (§23.11).
+// permanent fallback when the rubric-compiler is off or unhealthy.
 // It reads the stored `CandidateProfile` when present, else parses `resumeText`
 // on the fly — so callers that only have raw text still work.
 
