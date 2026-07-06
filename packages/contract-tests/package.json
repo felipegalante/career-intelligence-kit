@@ -30,6 +30,7 @@
     "@career-intelligence/client": "workspace:*",
     "@career-intelligence/local-engine": "workspace:*",
     "@career-intelligence/mock-server": "workspace:*",
+    "@career-intelligence/rubric-compiler-client": "workspace:*",
     "tsup": "^8.3.5",
     "vitest": "^2.1.8"
   },
