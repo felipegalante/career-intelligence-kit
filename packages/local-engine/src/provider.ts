@@ -33,7 +33,9 @@ import {
   mapNormalizedJobProfile,
   mapParsedResume,
   mapStrengths,
+  matchLevel,
 } from "./mappers";
+import { buildLocalFitInsights, localCalibration, localCompanyContext } from "./report";
 
 export const LOCAL_PROVIDER_ID = "local-career-intelligence";
 
@@ -105,34 +107,31 @@ export function createLocalCareerIntelligenceProvider(
     },
 
     generateResumeAtsReport(input: CareerEvaluationInput): Promise<ResumeAtsReportResult> {
-      const { analysis } = analyze(input);
+      const { profile, jobProfile, analysis } = analyze(input);
       const result = analysis.result;
       const md = metadata(input.requestId);
-      const matchedCount = result.matchedRequiredSkills.length;
-      const requiredCount = matchedCount + result.missingRequiredSkills.length;
       const ats = result.atsScore ?? 0;
       const readiness = Math.round(0.5 * result.overallScore + 0.5 * ats);
+      const level = matchLevel(result.overallScore, result.classification);
       return Promise.resolve({
         fitScore: result.overallScore,
         atsScore: ats,
         readinessScore: readiness,
+        matchLevel: level,
         verdict: result.explanationSummary,
-        headline: result.classification?.replace(/_/g, " ") ?? "fit assessed",
-        narrative: result.explanationSummary,
-        strengths: mapStrengths(result.strengths ?? []),
-        gaps: mapGaps(analysis.gaps),
-        skillsCoverage: {
-          matchedSkills: result.matchedRequiredSkills,
-          missingSkills: result.missingRequiredSkills,
-          resumeOnlySkills: [],
-          matchedCount,
-          requiredCount,
-        },
-        roadmap: (result.recommendations ?? []).map((rec) => rec.recommendation),
-        interviewPrep: [],
-        limitations: [
-          "Deterministic local engine: no LLM enrichment or company/domain context.",
-        ],
+        fitInsights: buildLocalFitInsights({
+          input,
+          profile,
+          jobProfile,
+          analysis,
+          matchLevel: level,
+          readinessScore: readiness,
+          generatedAt: md.generatedAt,
+        }),
+        companyIntel: null,
+        marketIntel: null,
+        calibration: localCalibration(result.overallScore),
+        companyContext: localCompanyContext(),
         metadata: md,
       });
     },
