@@ -1,6 +1,6 @@
 {
   "name": "@career-intelligence/client",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Generic HTTP client for the Career Intelligence API contract; implements CareerIntelligenceProvider.",
   "license": "MIT",
   "type": "module",

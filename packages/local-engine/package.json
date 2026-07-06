@@ -1,6 +1,6 @@
 {
   "name": "@career-intelligence/local-engine",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Deterministic CareerIntelligenceProvider composing resume-intelligence, job-description-normalization, and fit-scoring.",
   "license": "MIT",
   "type": "module",

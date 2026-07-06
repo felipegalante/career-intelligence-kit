@@ -1,6 +1,6 @@
 {
   "name": "@career-intelligence/provider",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The stable CareerIntelligenceProvider interface implemented by the local engine and remote clients.",
   "license": "MIT",
   "type": "module",

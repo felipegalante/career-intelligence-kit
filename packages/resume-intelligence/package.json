@@ -1,6 +1,6 @@
 {
   "name": "@career-intelligence/resume-intelligence",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Deterministic resume parsing, evidence matching, fit scoring, gap analysis, and Job Match Report building.",
   "license": "MIT",
   "type": "module",
