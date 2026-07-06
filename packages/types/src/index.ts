@@ -45,12 +45,34 @@ export type {
 } from "./scoring";
 
 export type {
+  ReportCalibration,
+  ReportCalibrationHint,
+  ReportCompanyContext,
+  ReportCompanyIntel,
+  ReportMarketIntel,
+} from "./company-context";
+
+export type {
   CareerEvaluationInput,
   CareerEvaluationResult,
+  EvaluationCompanyContextInput,
   EvaluationGap,
   EvaluationStrength,
+  ReportArtifacts,
+  ReportCategoryCoverage,
+  ReportChecklistItem,
+  ReportEvidenceReview,
+  ReportFitSummary,
+  ReportInterviewPrompt,
+  ReportResumeEdit,
+  ReportRoadmapStage,
+  ReportScoreCard,
+  ReportScoreCards,
+  ReportSkillsAnalysis,
+  ReportSnapshot,
+  ReportTargetRoleContext,
+  ResumeAtsFitInsights,
   ResumeAtsReportResult,
-  ResumeAtsReportSection,
 } from "./evaluation";
 
 export type {

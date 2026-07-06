@@ -132,6 +132,16 @@ components:
         warnings:
           type: array
           items: { type: string }
+        contractVersion: { type: string }
+        careerIntelligenceContractVersion: { type: string }
+        normalizerVersion: { type: string }
+        scoringVersion: { type: string }
+        rubricVersion: { type: string }
+        companyIntelProvider: { type: string }
+        companyIntelDegraded: { type: boolean }
+        companyIntelWarnings:
+          type: array
+          items: { type: string }
     CareerIntelligenceHealth:
       type: object
       required: [status, provider, engineVersion, localFallbackOnly]
@@ -211,13 +221,32 @@ components:
         calibration:
           type: array
           items: { type: object, additionalProperties: true }
+        companyIntel: { $ref: "#/components/schemas/ReportCompanyIntel" }
+        marketIntel: { $ref: "#/components/schemas/ReportMarketIntel" }
+        result:
+          type: object
+          description: Engine-native lightweight result envelope (engine-specific fields).
+          additionalProperties: true
         metadata: { $ref: "#/components/schemas/IntelligenceResultMetadata" }
+    EvaluationCompanyContextInput:
+      type: object
+      description: Optional company/domain resolution hints for company intelligence.
+      properties:
+        companyName: { type: string }
+        companyWebsite: { type: string }
+        companyDomain: { type: string }
+        countryOrRegion: { type: string }
+        jobTitle: { type: string }
+        jobDescriptionText: { type: string }
+        preResolvedCompanyContext: { type: object, additionalProperties: true }
+        companyContextMode: { type: string, enum: [remote, provided, disabled] }
     CareerEvaluationInput:
       type: object
       required: [resume, job]
       properties:
         resume: { $ref: "#/components/schemas/ResumeInput" }
         job: { $ref: "#/components/schemas/JobDescriptionInput" }
+        companyContext: { $ref: "#/components/schemas/EvaluationCompanyContextInput" }
         requestId: { type: string }
     CareerEvaluationResult:
       type: object
@@ -232,33 +261,119 @@ components:
         gaps:
           type: array
           items: { type: object, additionalProperties: true }
+        evidenceGraph:
+          type: object
+          description: Engine-native evidence graph (engine-specific shape).
+          additionalProperties: true
+        fitInsights: { $ref: "#/components/schemas/ResumeAtsFitInsights" }
+        companyIntel: { $ref: "#/components/schemas/ReportCompanyIntel" }
+        marketIntel: { $ref: "#/components/schemas/ReportMarketIntel" }
+        calibration: { $ref: "#/components/schemas/ReportCalibration" }
+        companyContext: { $ref: "#/components/schemas/ReportCompanyContext" }
         metadata: { $ref: "#/components/schemas/IntelligenceResultMetadata" }
-    ResumeAtsReportResult:
+    ReportCompanyIntel:
+      description: >
+        Company intelligence payload (carried opaquely from the company-intelligence
+        contract). Null when unresolved — never invented.
       type: object
-      required: [fitScore, atsScore, readinessScore, verdict, headline, narrative, metadata]
+      additionalProperties: true
+      nullable: true
+    ReportMarketIntel:
+      description: Domain/market intelligence payload. Null when unresolved.
+      type: object
+      additionalProperties: true
+      nullable: true
+    ReportCalibration:
+      type: object
+      description: >
+        How company-intelligence signals would adjust the deterministic score. The
+        base rubric score stays authoritative; the calibrated score is disclosed
+        alongside it, never silently substituted.
+      required:
+        [positiveSignals, negativeSignals, neutralSignals, netAdjustment, baseScore, calibratedScore, applied]
       properties:
-        fitScore: { type: number }
-        atsScore: { type: number }
-        readinessScore: { type: number }
-        verdict: { type: string }
-        headline: { type: string }
-        narrative: { type: string }
+        positiveSignals:
+          type: array
+          items: { type: object, additionalProperties: true }
+        negativeSignals:
+          type: array
+          items: { type: object, additionalProperties: true }
+        neutralSignals:
+          type: array
+          items: { type: object, additionalProperties: true }
+        netAdjustment: { type: number }
+        baseScore: { type: number }
+        calibratedScore: { type: number }
+        applied: { type: boolean }
+    ReportCompanyContext:
+      type: object
+      description: Honest company/domain section — insights when available, degraded disclosure otherwise.
+      required: [provider, degraded, preparationInsights, resumeTailoringAngles, warnings]
+      properties:
+        provider: { type: string }
+        degraded: { type: boolean }
+        preparationInsights:
+          type: array
+          items: {}
+        resumeTailoringAngles:
+          type: array
+          items: {}
+        warnings:
+          type: array
+          items: { type: string }
+    ResumeAtsFitInsights:
+      type: object
+      description: The structured, render-ready report body. See @career-intelligence/types for full field shapes.
+      required:
+        [fitSummary, snapshot, scoreCards, strengths, gaps, roadmap, resumeEdits, interviewPrep, skillsAnalysis, applicationChecklist, targetRoleContext, evidenceReview]
+      properties:
+        fitSummary: { type: object, additionalProperties: true }
+        snapshot: { type: object, additionalProperties: true }
+        scoreCards: { type: object, additionalProperties: true }
         strengths:
           type: array
           items: { type: object, additionalProperties: true }
         gaps:
           type: array
           items: { type: object, additionalProperties: true }
-        skillsCoverage: { type: object, additionalProperties: true }
         roadmap:
           type: array
-          items: { type: string }
+          items: { type: object, additionalProperties: true }
+        resumeEdits:
+          type: array
+          items: { type: object, additionalProperties: true }
         interviewPrep:
           type: array
-          items: { type: string }
-        limitations:
+          items: { type: object, additionalProperties: true }
+        skillsAnalysis: { type: object, additionalProperties: true }
+        applicationChecklist:
           type: array
-          items: { type: string }
+          items: { type: object, additionalProperties: true }
+        targetRoleContext: { type: object, additionalProperties: true }
+        evidenceReview: { type: object, additionalProperties: true }
+    ResumeAtsReportResult:
+      type: object
+      required:
+        [fitScore, atsScore, readinessScore, matchLevel, verdict, fitInsights, companyIntel, marketIntel, calibration, companyContext, metadata]
+      properties:
+        fitScore: { type: number }
+        atsScore: { type: number }
+        readinessScore: { type: number }
+        matchLevel: { type: string, enum: [strong, good, fair, weak] }
+        verdict: { type: string }
+        summary:
+          type: object
+          description: Engine-native summary envelope; products should render from fitInsights.
+          additionalProperties: true
+        fitInsights: { $ref: "#/components/schemas/ResumeAtsFitInsights" }
+        companyIntel: { $ref: "#/components/schemas/ReportCompanyIntel" }
+        marketIntel: { $ref: "#/components/schemas/ReportMarketIntel" }
+        calibration: { $ref: "#/components/schemas/ReportCalibration" }
+        companyContext: { $ref: "#/components/schemas/ReportCompanyContext" }
+        artifacts:
+          type: object
+          description: Rendered report artifacts (e.g. a Markdown export).
+          additionalProperties: true
         metadata: { $ref: "#/components/schemas/IntelligenceResultMetadata" }
 security:
   - bearerAuth: []

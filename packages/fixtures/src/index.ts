@@ -36,7 +36,7 @@ Skills
 TypeScript, Node.js, PostgreSQL, AWS, Docker
 
 Experience
-Senior Software Engineer, Acme (2020-2026)
+Senior Software Engineer, Initech Systems (2020-2026)
 - Built and scaled Node.js and TypeScript microservices on AWS.
 - Designed PostgreSQL schemas and optimized slow queries by 40%.
 `,
@@ -44,7 +44,7 @@ Senior Software Engineer, Acme (2020-2026)
 
 export const jobDescriptionInputFixture: JobDescriptionInput = {
   title: "Senior Backend Engineer",
-  company: "Globex",
+  company: "Globex Cloud",
   text: `Senior Backend Engineer
 
 About the role
@@ -75,7 +75,7 @@ export const parsedResumeFixture: ParsedResume = {
       normalizedTitle: "senior software engineer",
       roleFamily: "engineering",
       seniority: "senior",
-      organization: "Acme",
+      organization: "Initech Systems",
       startDate: "2020",
       endDate: "2026",
       highlights: [
@@ -147,21 +147,30 @@ export const fitScoreResultFixture: FitScoreResult = {
   metadata: metadataFixture,
 };
 
+const strengthsFixture = [
+  {
+    title: "typescript",
+    summary: "Strong, well-evidenced TypeScript experience.",
+    confidence: 82,
+    level: "Strong",
+  },
+];
+
+const gapsFixture = [
+  {
+    title: "kubernetes",
+    summary: "Preferred skill not present in the resume.",
+    tip: "Add Kubernetes experience only if genuinely true.",
+    impact: "medium" as const,
+  },
+];
+
 export const careerEvaluationResultFixture: CareerEvaluationResult = {
   parsedResume: parsedResumeFixture,
   jobProfile: normalizedJobProfileFixture,
   fit: fitScoreResultFixture,
-  strengths: [
-    { title: "typescript", summary: "Strong, well-evidenced TypeScript experience.", confidence: 0.7 },
-  ],
-  gaps: [
-    {
-      title: "kubernetes",
-      summary: "Preferred skill not present in the resume.",
-      tip: "Add Kubernetes experience only if genuinely true.",
-      impact: "medium",
-    },
-  ],
+  strengths: strengthsFixture,
+  gaps: gapsFixture,
   metadata: metadataFixture,
 };
 
@@ -169,29 +178,116 @@ export const resumeAtsReportResultFixture: ResumeAtsReportResult = {
   fitScore: 78,
   atsScore: 72,
   readinessScore: 75,
+  matchLevel: "strong",
   verdict: "Strong match for a senior backend role.",
-  headline: "strong match",
-  narrative: "Your resume covers the core required stack; close the Kubernetes gap to strengthen the application.",
-  strengths: [
-    { title: "typescript", summary: "Strong, well-evidenced TypeScript experience.", confidence: 0.7 },
-  ],
-  gaps: [
-    {
-      title: "kubernetes",
-      summary: "Preferred skill not present in the resume.",
-      tip: "Add Kubernetes experience only if genuinely true.",
-      impact: "medium",
+  fitInsights: {
+    fitSummary: {
+      headline: "strong match",
+      narrative:
+        "Your resume covers the core required stack; close the Kubernetes gap to strengthen the application.",
+      generatedAt: "2026-01-01T00:00:00.000Z",
+      roleTitle: "Senior Backend Engineer",
+      workplaceType: null,
+      locations: [],
+      bestNextMove: "Add Kubernetes experience only if genuinely true.",
     },
-  ],
-  skillsCoverage: {
-    matchedSkills: ["typescript", "nodejs", "postgresql", "aws"],
-    missingSkills: ["kubernetes"],
-    resumeOnlySkills: ["docker"],
-    matchedCount: 4,
-    requiredCount: 5,
+    snapshot: {
+      skillsMatched: "4 of 5",
+      topStrengths: "typescript",
+      missingEvidence: "Preferred skill not present in the resume.",
+      focusNext: "Add Kubernetes experience only if genuinely true.",
+      roleContext: "Senior Backend Engineer - Globex Cloud",
+      confidence: "High",
+    },
+    scoreCards: {
+      fitScore: { value: 78, label: "Fit score", detail: "Solid foundation with clear improvement opportunities." },
+      atsScore: { value: 72, label: "ATS score", detail: "4 of 5 detected role skills matched." },
+      matchLevel: { label: "Strong", detail: "High alignment with remaining polish opportunities." },
+      primaryGap: { label: "kubernetes", detail: "Preferred skill not present in the resume." },
+      estimatedReadiness: { value: 75, label: "~75%", detail: "Likely to improve with focused evidence updates." },
+    },
+    strengths: strengthsFixture,
+    gaps: gapsFixture,
+    roadmap: [
+      {
+        title: "Fix now",
+        impact: "High impact",
+        tone: "danger",
+        items: ["Add a project demonstrating container orchestration with Kubernetes."],
+        focus: "Close critical gaps",
+      },
+      {
+        title: "Improve next",
+        impact: "Medium impact",
+        tone: "warn",
+        items: ["Quantify impact and clarify scope where the resume is vague."],
+        focus: "Strengthen evidence",
+      },
+      {
+        title: "Optional polish",
+        impact: "Low impact",
+        tone: "good",
+        items: ["Tighten role-language alignment."],
+        focus: "Differentiate further",
+      },
+    ],
+    resumeEdits: [
+      {
+        title: "Add Kubernetes evidence",
+        example: "Example: Deployed services to Kubernetes with rolling updates and autoscaling.",
+        priority: 1,
+      },
+    ],
+    interviewPrep: [
+      { topic: "Scaling on AWS", prompt: "Be ready to discuss scaling Node.js services on AWS." },
+    ],
+    skillsAnalysis: {
+      categoryCoverage: [
+        { label: "Technical stack", percent: 82 },
+        { label: "Seniority & scope", percent: 76 },
+      ],
+      coveragePercent: 80,
+      matchedCount: 4,
+      requiredCount: 5,
+      matchedSkills: ["typescript", "nodejs", "postgresql", "aws"],
+      missingSkills: ["kubernetes"],
+      resumeOnlySkills: ["docker"],
+    },
+    applicationChecklist: [
+      {
+        title: "Add missing evidence",
+        detail: "Preferred skill not present in the resume.",
+        done: false,
+      },
+    ],
+    targetRoleContext: {
+      title: "Senior Backend Engineer",
+      meta: ["Globex Cloud"],
+      keyExpectations: ["typescript", "nodejs", "postgresql", "aws", "kubernetes"],
+    },
+    evidenceReview: {
+      validatedSignals: ["typescript"],
+      detectedGaps: ["kubernetes"],
+      limitations: ["Deterministic local engine: no LLM enrichment or company/domain context."],
+    },
   },
-  roadmap: ["Add a project demonstrating container orchestration with Kubernetes."],
-  interviewPrep: ["Be ready to discuss scaling Node.js services on AWS."],
-  limitations: ["Deterministic local engine: no LLM enrichment or company/domain context."],
+  companyIntel: null,
+  marketIntel: null,
+  calibration: {
+    positiveSignals: [],
+    negativeSignals: [],
+    neutralSignals: [],
+    netAdjustment: 0,
+    baseScore: 78,
+    calibratedScore: 78,
+    applied: false,
+  },
+  companyContext: {
+    provider: "none",
+    degraded: true,
+    preparationInsights: [],
+    resumeTailoringAngles: [],
+    warnings: ["Deterministic local engine: company/domain intelligence is unavailable."],
+  },
   metadata: metadataFixture,
 };

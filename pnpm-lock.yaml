@@ -91,6 +91,9 @@ importers:
       '@career-intelligence/mock-server':
         specifier: workspace:*
         version: link:../mock-server
+      '@career-intelligence/rubric-compiler-client':
+        specifier: workspace:*
+        version: link:../rubric-compiler-client
       tsup:
         specifier: ^8.3.5
         version: 8.5.1(postcss@8.5.15)(tsx@4.22.4)(typescript@5.9.3)

@@ -1,5 +1,6 @@
 // Public fit-scoring DTOs.
 
+import { type ReportCompanyIntel, type ReportMarketIntel } from "./company-context";
 import { type IntelligenceResultMetadata } from "./metadata";
 
 export type FitMatchLevel = "strong" | "good" | "fair" | "weak";
@@ -27,8 +28,8 @@ export interface FitSignal {
 export interface CalibrationSignal {
   /** Source of the calibration hint (e.g. "company-intelligence"). */
   source: string;
-  /** Dimension id the hint adjusts. */
-  dimension: string;
+  /** Dimension id the hint adjusts (null when the hint is dimension-agnostic). */
+  dimension: string | null;
   /** Signed adjustment applied during scoring. */
   adjustment: number;
   rationale: string;
@@ -44,5 +45,11 @@ export interface FitScoreResult {
   dimensions: ScoreDimension[];
   signals: FitSignal[];
   calibration: CalibrationSignal[];
+  /** Resolved company intelligence, when the provider integrates it. */
+  companyIntel?: ReportCompanyIntel;
+  /** Resolved domain/market intelligence, when the provider integrates it. */
+  marketIntel?: ReportMarketIntel;
+  /** Engine-native lightweight result envelope (engine-specific fields). */
+  result?: Record<string, unknown>;
   metadata: IntelligenceResultMetadata;
 }

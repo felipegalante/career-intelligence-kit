@@ -177,7 +177,7 @@ export function buildScoreableJob(input: JobDescriptionInput, profile: JobProfil
 
 // ---- fit / report ---------------------------------------------------------
 
-function matchLevel(score: number, classification?: MatchClassification): FitMatchLevel {
+export function matchLevel(score: number, classification?: MatchClassification): FitMatchLevel {
   switch (classification) {
     case "excellent_match":
     case "strong_match":
@@ -204,10 +204,13 @@ export function severityToImpact(severity: GapSeverity): EvaluationGap["impact"]
 }
 
 export function mapStrengths(strengths: FitStrength[]): EvaluationStrength[] {
+  // EvaluationStrength.confidence is 0-100; the deterministic engine reports a
+  // uniform moderate confidence because it scores evidence presence, not depth.
   return strengths.map((strength) => ({
     title: strength.label,
     summary: strength.evidence[0] ?? "",
-    confidence: 0.7,
+    confidence: 70,
+    level: "Moderate",
   }));
 }
 

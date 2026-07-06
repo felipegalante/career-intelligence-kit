@@ -56,18 +56,38 @@ describe("local career intelligence provider", () => {
     expect(result.metadata.generatedAt).toBe("2026-01-01T00:00:00.000Z");
   });
 
-  it("produces a Resume ATS report with bounded scores and limitations", async () => {
+  it("produces a Resume ATS report with bounded scores and structured insights", async () => {
     const report = await provider.generateResumeAtsReport({
       resume: { text: RESUME },
-      job: { text: JOB, title: "Senior Backend Engineer" },
+      job: { text: JOB, title: "Senior Backend Engineer", company: "Globex" },
     });
 
     for (const score of [report.fitScore, report.atsScore, report.readinessScore]) {
       expect(score).toBeGreaterThanOrEqual(0);
       expect(score).toBeLessThanOrEqual(100);
     }
-    expect(report.limitations.length).toBeGreaterThan(0);
+    expect(["strong", "good", "fair", "weak"]).toContain(report.matchLevel);
+    expect(report.fitInsights.evidenceReview.limitations.length).toBeGreaterThan(0);
+    expect(report.fitInsights.fitSummary.headline).toBeTruthy();
+    expect(report.fitInsights.skillsAnalysis.matchedSkills.length).toBeGreaterThan(0);
+    expect(report.fitInsights.roadmap).toHaveLength(3);
     expect(report.metadata.mode).toBe("local");
+  });
+
+  it("discloses missing company intelligence honestly on the report", async () => {
+    const report = await provider.generateResumeAtsReport({
+      resume: { text: RESUME },
+      job: { text: JOB, title: "Senior Backend Engineer" },
+    });
+
+    expect(report.companyIntel).toBeNull();
+    expect(report.marketIntel).toBeNull();
+    expect(report.companyContext.provider).toBe("none");
+    expect(report.companyContext.degraded).toBe(true);
+    expect(report.companyContext.warnings.length).toBeGreaterThan(0);
+    expect(report.calibration.applied).toBe(false);
+    expect(report.calibration.calibratedScore).toBe(report.calibration.baseScore);
+    expect(report.calibration.netAdjustment).toBe(0);
   });
 
   it("describes capabilities and reports healthy", async () => {

@@ -24,6 +24,22 @@ export interface IntelligenceResultMetadata {
   requestId?: string;
   /** Non-fatal warnings about the result (missing inputs, low confidence, etc.). */
   warnings: string[];
+  /** Provider-native contract/response version label. */
+  contractVersion?: string;
+  /** The career-intelligence contract version implemented, e.g. "career-intelligence/v1". */
+  careerIntelligenceContractVersion?: string;
+  /** Resume/JD normalizer version. */
+  normalizerVersion?: string;
+  /** Scoring algorithm version. */
+  scoringVersion?: string;
+  /** Rubric version, for rubric-based engines. */
+  rubricVersion?: string;
+  /** Company-intelligence provider that contributed context ("none" when disabled). */
+  companyIntelProvider?: string;
+  /** True when company/domain context is absent or degraded. */
+  companyIntelDegraded?: boolean;
+  /** Warnings from the company-intelligence resolution. */
+  companyIntelWarnings?: string[];
 }
 
 export interface CareerIntelligenceError {
