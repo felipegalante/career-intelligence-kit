@@ -1,6 +1,6 @@
 {
   "name": "@career-intelligence/contract-tests",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Reusable Career Intelligence contract test suite (validates the mock server and the private Rubric Compiler).",
   "license": "MIT",
   "type": "module",

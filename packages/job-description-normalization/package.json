@@ -1,6 +1,6 @@
 {
   "name": "@career-intelligence/job-description-normalization",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Deterministic job-description-to-score-profile normalization (skills, seniority, role family, requirement graph, taxonomy).",
   "license": "MIT",
   "type": "module",

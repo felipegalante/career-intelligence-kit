@@ -1,6 +1,6 @@
 {
   "name": "@career-intelligence/fixtures",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Realistic, non-private career-intelligence fixtures for local/demo mode, mocks, and contract tests.",
   "license": "MIT",
   "type": "module",
