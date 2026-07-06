@@ -36,7 +36,7 @@ Skills
 TypeScript, Node.js, PostgreSQL, AWS, Docker
 
 Experience
-Senior Software Engineer, Acme (2020-2026)
+Senior Software Engineer, Initech Systems (2020-2026)
 - Built and scaled Node.js and TypeScript microservices on AWS.
 - Designed PostgreSQL schemas and optimized slow queries by 40%.
 `,
@@ -44,7 +44,7 @@ Senior Software Engineer, Acme (2020-2026)
 
 export const jobDescriptionInputFixture: JobDescriptionInput = {
   title: "Senior Backend Engineer",
-  company: "Globex",
+  company: "Globex Cloud",
   text: `Senior Backend Engineer
 
 About the role
@@ -75,7 +75,7 @@ export const parsedResumeFixture: ParsedResume = {
       normalizedTitle: "senior software engineer",
       roleFamily: "engineering",
       seniority: "senior",
-      organization: "Acme",
+      organization: "Initech Systems",
       startDate: "2020",
       endDate: "2026",
       highlights: [
@@ -196,7 +196,7 @@ export const resumeAtsReportResultFixture: ResumeAtsReportResult = {
       topStrengths: "typescript",
       missingEvidence: "Preferred skill not present in the resume.",
       focusNext: "Add Kubernetes experience only if genuinely true.",
-      roleContext: "Senior Backend Engineer - Globex",
+      roleContext: "Senior Backend Engineer - Globex Cloud",
       confidence: "High",
     },
     scoreCards: {
@@ -262,7 +262,7 @@ export const resumeAtsReportResultFixture: ResumeAtsReportResult = {
     ],
     targetRoleContext: {
       title: "Senior Backend Engineer",
-      meta: ["Globex"],
+      meta: ["Globex Cloud"],
       keyExpectations: ["typescript", "nodejs", "postgresql", "aws", "kubernetes"],
     },
     evidenceReview: {
